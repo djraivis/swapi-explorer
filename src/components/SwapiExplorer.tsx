@@ -7,28 +7,37 @@ import {
   DEFAULT_CATEGORY,
   SWAPI_CATEGORIES,
 } from "@/lib/constants";
+import { ResultsTable } from "@/components/ResultsTable";
 import { fetchAllCategoryItems } from "@/lib/swapi";
 import type { SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
 
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
+  // Tracks which SWAPI category the user is currently viewing.
   const [selectedCategory, setSelectedCategory] =
     useState<SwapiCategory>(DEFAULT_CATEGORY);
+  // Stores the current search input value.
   const [searchValue, setSearchValue] = useState("");
+  // Holds the fetched records for the selected category.
   const [items, setItems] = useState<unknown[]>([]);
+  // Controls the visible loading message while data is being fetched.
   const [isLoading, setIsLoading] = useState(true);
+  // Stores a user-facing error message if the request fails.
   const [errorMessage, setErrorMessage] = useState("");
 
   // Fetches the full dataset whenever the user selects a new category.
   useEffect(() => {
+    // Prevents state updates if the component unmounts before the fetch finishes.
     let isCancelled = false;
 
     async function loadCategoryItems() {
+      // Resets the status before starting a new request.
       setIsLoading(true);
       setErrorMessage("");
 
       try {
+        // Loads every SWAPI page for the selected category into one array.
         const nextItems = await fetchAllCategoryItems(selectedCategory);
 
         if (!isCancelled) {
@@ -36,16 +45,19 @@ export function SwapiExplorer() {
         }
       } catch {
         if (!isCancelled) {
+          // Clears stale data and shows a simple error if the request fails.
           setItems([]);
           setErrorMessage("Unable to load this category. Please try again.");
         }
       } finally {
         if (!isCancelled) {
+          // Ends the loading state after success or failure.
           setIsLoading(false);
         }
       }
     }
 
+    // Starts the request for the currently selected category.
     loadCategoryItems();
 
     return () => {
@@ -76,6 +88,7 @@ export function SwapiExplorer() {
                 id="category"
                 className={styles.input}
                 value={selectedCategory}
+                // Updates the selected category and triggers a new fetch.
                 onChange={(event) =>
                   setSelectedCategory(event.target.value as SwapiCategory)
                 }
@@ -98,6 +111,7 @@ export function SwapiExplorer() {
                 type="text"
                 placeholder="Search this category"
                 value={searchValue}
+                // Stores the search text locally until filtering is added.
                 onChange={(event) => setSearchValue(event.target.value)}
               />
             </div>
@@ -129,6 +143,13 @@ export function SwapiExplorer() {
               </p>
             ) : null}
           </div>
+
+          {!isLoading && !errorMessage ? (
+            <ResultsTable
+              items={items}
+              selectedCategory={selectedCategory}
+            />
+          ) : null}
         </section>
       </div>
     </main>
