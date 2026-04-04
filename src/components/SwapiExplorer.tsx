@@ -1,3 +1,4 @@
+import { CATEGORY_LABELS, DEFAULT_CATEGORY, SWAPI_CATEGORIES } from "@/lib/constants";
 import styles from "./SwapiExplorer.module.css";
 
 // Holds the main page layout and will contain the explorer UI.
@@ -14,9 +15,43 @@ export function SwapiExplorer() {
           </p>
         </header>
 
-        {/* This panel will hold the category controls and results next. */}
+        {/* This panel holds the explorer controls before data is wired up. */}
         <section className={styles.panel}>
-          <p>Select a category, search the results, and sort the data.</p>
+          <div className={styles.controls}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="category">
+                Category
+              </label>
+              <select
+                id="category"
+                className={styles.input}
+                defaultValue={DEFAULT_CATEGORY}
+              >
+                {SWAPI_CATEGORIES.map((category) => (
+                  <option key={category} value={category}>
+                    {CATEGORY_LABELS[category]}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="search">
+                Search
+              </label>
+              <input
+                id="search"
+                className={styles.input}
+                type="text"
+                placeholder="Search this category"
+              />
+            </div>
+          </div>
+
+          <p className={styles.helperText}>
+            The controls are in place. Data fetching and results display will be
+            wired up next.
+          </p>
         </section>
       </div>
     </main>
