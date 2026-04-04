@@ -1,8 +1,58 @@
-import { CATEGORY_LABELS, DEFAULT_CATEGORY, SWAPI_CATEGORIES } from "@/lib/constants";
+"use client";
+
+import { useEffect, useState } from "react";
+
+import {
+  CATEGORY_LABELS,
+  DEFAULT_CATEGORY,
+  SWAPI_CATEGORIES,
+} from "@/lib/constants";
+import { fetchAllCategoryItems } from "@/lib/swapi";
+import type { SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
 
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
+  const [selectedCategory, setSelectedCategory] =
+    useState<SwapiCategory>(DEFAULT_CATEGORY);
+  const [searchValue, setSearchValue] = useState("");
+  const [items, setItems] = useState<unknown[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Fetches the full dataset whenever the user selects a new category.
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadCategoryItems() {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const nextItems = await fetchAllCategoryItems(selectedCategory);
+
+        if (!isCancelled) {
+          setItems(nextItems);
+        }
+      } catch {
+        if (!isCancelled) {
+          setItems([]);
+          setErrorMessage("Unable to load this category. Please try again.");
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadCategoryItems();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [selectedCategory]);
+
   return (
     <main className={styles.page}>
       <div className={styles.container}>
@@ -25,7 +75,10 @@ export function SwapiExplorer() {
               <select
                 id="category"
                 className={styles.input}
-                defaultValue={DEFAULT_CATEGORY}
+                value={selectedCategory}
+                onChange={(event) =>
+                  setSelectedCategory(event.target.value as SwapiCategory)
+                }
               >
                 {SWAPI_CATEGORIES.map((category) => (
                   <option key={category} value={category}>
@@ -44,14 +97,38 @@ export function SwapiExplorer() {
                 className={styles.input}
                 type="text"
                 placeholder="Search this category"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
               />
             </div>
           </div>
 
           <p className={styles.helperText}>
-            The controls are in place. Data fetching and results display will be
-            wired up next.
+            Search will be wired up next. Category changes already trigger a new
+            fetch.
           </p>
+
+          {/* Announces loading, success, and error updates to the user. */}
+          <div aria-live="polite" className={styles.statusBlock}>
+            {isLoading ? (
+              <p className={styles.statusMessage}>
+                Loading {CATEGORY_LABELS[selectedCategory].toLowerCase()}...
+              </p>
+            ) : null}
+
+            {errorMessage ? (
+              <p className={styles.errorMessage} role="alert">
+                {errorMessage}
+              </p>
+            ) : null}
+
+            {!isLoading && !errorMessage ? (
+              <p className={styles.statusMessage}>
+                Loaded {items.length}{" "}
+                {CATEGORY_LABELS[selectedCategory].toLowerCase()}.
+              </p>
+            ) : null}
+          </div>
         </section>
       </div>
     </main>

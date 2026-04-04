@@ -79,6 +79,19 @@
   color: #475569;
 }
 
+.statusBlock {
+  margin-top: 16px;
+}
+
+.statusMessage {
+  color: #1e293b;
+}
+
+.errorMessage {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   .page {
     padding: 32px 16px;
