@@ -2,16 +2,6 @@
 
 A small Next.js and TypeScript application for browsing, searching, and sorting Star Wars data from SWAPI.
 
-## Overview
-
-This project is being built as a frontend developer task with a deliberately simple approach.
-
-The goal is to satisfy the acceptance criteria while keeping the code:
-
-- easy to read
-- easy to explain in an interview
-- free from unnecessary abstractions
-
 ## Current Status
 
 The project foundation is already in place:
