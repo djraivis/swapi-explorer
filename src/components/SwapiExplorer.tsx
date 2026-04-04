@@ -12,6 +12,8 @@ import { fetchAllCategoryItems } from "@/lib/swapi";
 import type { SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
 
+type SwapiItem = Record<string, unknown>;
+
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
   // Tracks which SWAPI category the user is currently viewing.
@@ -25,6 +27,25 @@ export function SwapiExplorer() {
   const [isLoading, setIsLoading] = useState(true);
   // Stores a user-facing error message if the request fails.
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Filters the loaded results using title for films and name for other categories.
+  const filteredItems = items.filter((item) => {
+    const row = item as SwapiItem;
+    const searchTerm = searchValue.trim().toLowerCase();
+
+    if (searchTerm === "") {
+      return true;
+    }
+
+    const valueToSearch =
+      selectedCategory === "films" ? row.title : row.name;
+
+    if (typeof valueToSearch !== "string") {
+      return false;
+    }
+
+    return valueToSearch.toLowerCase().includes(searchTerm);
+  });
 
   // Fetches the full dataset whenever the user selects a new category.
   useEffect(() => {
@@ -138,7 +159,7 @@ export function SwapiExplorer() {
 
             {!isLoading && !errorMessage ? (
               <p className={styles.statusMessage}>
-                Loaded {items.length}{" "}
+                Showing {filteredItems.length} of {items.length}{" "}
                 {CATEGORY_LABELS[selectedCategory].toLowerCase()}.
               </p>
             ) : null}
@@ -146,7 +167,7 @@ export function SwapiExplorer() {
 
           {!isLoading && !errorMessage ? (
             <ResultsTable
-              items={items}
+              items={filteredItems}
               selectedCategory={selectedCategory}
             />
           ) : null}

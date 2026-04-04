@@ -124,6 +124,36 @@ The app is intended to cover basic WCAG 2.2 Level A/AA expectations through:
 - accessible table markup
 - clear loading and error feedback
 
+## Search Behavior
+
+Search is implemented as a simple client-side filter on the already fetched
+category data.
+
+How it works:
+
+- when the user selects a category, the app fetches all pages for that category from SWAPI
+- the full dataset for the selected category is stored in memory
+- when the user types in the search input, the app filters the already loaded results in the browser
+- no additional API request is made for each search input change
+
+In this context, "in memory" means the fetched results are held in React state
+while the page is open. They are not read from `localStorage`.
+
+Search field by category:
+
+- `films`
+  - searched by `title`
+
+- all other supported categories
+  - searched by `name`
+
+Why this approach was chosen:
+
+- it satisfies the task requirement to search across all available categories
+- it keeps the implementation simple and easy to explain
+- it avoids unnecessary extra API calls
+- it works well with the requirement to fetch the full dataset for each category
+
 ## Getting Started
 
 Install dependencies:
