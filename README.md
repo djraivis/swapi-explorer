@@ -302,6 +302,30 @@ Why this approach was chosen:
 - it avoids unnecessary extra API calls
 - it works naturally with the existing client-side search flow
 
+## Persistence Behavior
+
+The app stores recent category and per-category view state in `localStorage`.
+
+How it works:
+
+- when the page loads, the app checks `localStorage` for the most recently selected category
+- the app also checks for saved search and sort values for each category
+- when the user switches categories, the app restores that category's saved search and sort values
+- when the user changes category, search, or sort, the latest values are saved back to `localStorage`
+
+What is persisted:
+
+- the most recently selected category
+- the search value for each category
+- the sort order for each category
+
+Why this approach was chosen:
+
+- it satisfies the requirement to remember the most recently searched category
+- it satisfies the requirement to preserve search and sort state per category
+- it keeps the implementation simple and browser-native
+- it avoids adding context, custom hooks, or extra libraries
+
 ## Accessibility
 
 The app is intended to cover basic WCAG 2.2 Level A/AA expectations through:

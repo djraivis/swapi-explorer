@@ -5,15 +5,21 @@ import { useEffect, useState } from "react";
 import {
   CATEGORY_LABELS,
   DEFAULT_CATEGORY,
+  DEFAULT_CATEGORY_STATE,
   SWAPI_CATEGORIES,
+  STORAGE_KEYS,
 } from "@/lib/constants";
 import { ResultsTable } from "@/components/ResultsTable";
 import { fetchAllCategoryItems } from "@/lib/swapi";
-import type { SwapiCategory } from "@/lib/types";
+import type { SavedCategoryState, SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
 
 type SwapiItem = Record<string, unknown>;
 type SortOrder = "asc" | "desc";
+
+function isSwapiCategory(value: string): value is SwapiCategory {
+  return SWAPI_CATEGORIES.includes(value as SwapiCategory);
+}
 
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
@@ -30,6 +36,35 @@ export function SwapiExplorer() {
   const [isLoading, setIsLoading] = useState(true);
   // Stores a user-facing error message if the request fails.
   const [errorMessage, setErrorMessage] = useState("");
+
+  // PERSISTENCE: RESTORES SAVED CATEGORY, SEARCH, AND SORT STATE FROM LOCALSTORAGE.
+  useEffect(() => {
+    const savedRecentCategory = window.localStorage.getItem(
+      STORAGE_KEYS.recentCategory
+    );
+    const savedCategoryState = window.localStorage.getItem(
+      STORAGE_KEYS.categoryState
+    );
+
+    if (savedRecentCategory && isSwapiCategory(savedRecentCategory)) {
+      setSelectedCategory(savedRecentCategory);
+    }
+
+    if (savedCategoryState) {
+      try {
+        const parsedState = JSON.parse(savedCategoryState) as SavedCategoryState;
+        const categoryToUse =
+          savedRecentCategory && isSwapiCategory(savedRecentCategory)
+            ? savedRecentCategory
+            : DEFAULT_CATEGORY;
+
+        setSearchValue(parsedState[categoryToUse]?.search ?? "");
+        setSortOrder(parsedState[categoryToUse]?.sortOrder ?? "asc");
+      } catch {
+        window.localStorage.removeItem(STORAGE_KEYS.categoryState);
+      }
+    }
+  }, []);
 
   // Filters the loaded results using title for films and name for other categories.
   const filteredItems = items.filter((item) => {
@@ -66,6 +101,30 @@ export function SwapiExplorer() {
 
     return sortOrder === "asc" ? result : result * -1;
   });
+
+  // PERSISTENCE: RESTORES THE SAVED SEARCH AND SORT STATE WHEN THE CATEGORY CHANGES.
+  useEffect(() => {
+    const savedCategoryState = window.localStorage.getItem(
+      STORAGE_KEYS.categoryState
+    );
+
+    if (!savedCategoryState) {
+      setSearchValue("");
+      setSortOrder("asc");
+      return;
+    }
+
+    try {
+      const parsedState = JSON.parse(savedCategoryState) as SavedCategoryState;
+      const nextState = parsedState[selectedCategory];
+
+      setSearchValue(nextState?.search ?? "");
+      setSortOrder(nextState?.sortOrder ?? "asc");
+    } catch {
+      setSearchValue("");
+      setSortOrder("asc");
+    }
+  }, [selectedCategory]);
 
   // Fetches the full dataset whenever the user selects a new category.
   useEffect(() => {
@@ -105,6 +164,47 @@ export function SwapiExplorer() {
       isCancelled = true;
     };
   }, [selectedCategory]);
+
+  // PERSISTENCE: SAVES THE LATEST CATEGORY, SEARCH, AND SORT STATE TO LOCALSTORAGE.
+  useEffect(() => {
+    window.localStorage.setItem(STORAGE_KEYS.recentCategory, selectedCategory);
+
+    const savedCategoryState = window.localStorage.getItem(
+      STORAGE_KEYS.categoryState
+    );
+
+    try {
+      const parsedState = savedCategoryState
+        ? (JSON.parse(savedCategoryState) as SavedCategoryState)
+        : DEFAULT_CATEGORY_STATE;
+
+      const nextState: SavedCategoryState = {
+        ...parsedState,
+        [selectedCategory]: {
+          search: searchValue,
+          sortOrder,
+        },
+      };
+
+      window.localStorage.setItem(
+        STORAGE_KEYS.categoryState,
+        JSON.stringify(nextState)
+      );
+    } catch {
+      const nextState: SavedCategoryState = {
+        ...DEFAULT_CATEGORY_STATE,
+        [selectedCategory]: {
+          search: searchValue,
+          sortOrder,
+        },
+      };
+
+      window.localStorage.setItem(
+        STORAGE_KEYS.categoryState,
+        JSON.stringify(nextState)
+      );
+    }
+  }, [searchValue, selectedCategory, sortOrder]);
 
   return (
     <main className={styles.page}>
