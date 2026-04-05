@@ -4,20 +4,28 @@ A small Next.js and TypeScript application for browsing, searching, and sorting 
 
 ## Current Status
 
-The project foundation is already in place:
+Implemented so far:
 
 - Next.js app scaffolded
-- TypeScript configured
-- App Router enabled
-- global styles simplified
-- default starter content removed
-- project structure planned
+- category selection
+- full category fetching across all SWAPI pages
+- results table rendering
+- loading and error states
+- client-side search
+- client-side sorting
+- category-specific table columns
+- CSS Modules styling
 
-The core SWAPI functionality is the next implementation step.
+Still to complete:
 
-## Planned Features
+- persistence for recent category
+- persistence for per-category search and sort state
+- final accessibility pass
+- final README/submission polish
 
-The application is intended to support:
+## Acceptance Criteria Mapping
+
+The application is being built to support:
 
 - selecting any available SWAPI category
 - searching within the selected category
@@ -113,16 +121,120 @@ Shared logic and app definitions.
 - `types.ts`
   Shared TypeScript types for component props, state, and SWAPI data.
 
-## Accessibility
+## Category Selection
 
-The app is intended to cover basic WCAG 2.2 Level A/AA expectations through:
+Category selection is implemented with a simple `<select>` control on the main
+page.
 
-- semantic HTML
-- labelled inputs
-- visible focus states
-- sufficient color contrast
-- accessible table markup
-- clear loading and error feedback
+How it works:
+
+- the app renders all supported SWAPI categories in a dropdown
+- the selected value is stored in React state
+- when the selected category changes, the app triggers a new data fetch for that category
+
+Why this approach was chosen:
+
+- it satisfies the requirement to browse all categories
+- it keeps the UI simple and easy to explain
+- it works naturally with a single-page app
+
+## Full Dataset Fetching
+
+The app fetches the full dataset for the selected category, not just the first
+page.
+
+How it works:
+
+- the app requests the first SWAPI page for the selected category
+- if the response contains a `next` URL, the app keeps requesting the next page
+- results from every page are combined into one array
+- the combined array is returned to the page component
+
+Why this approach was chosen:
+
+- it satisfies the requirement to show the full category dataset
+- it avoids adding UI pagination
+- it keeps the API logic contained in one helper file
+
+## Results Table
+
+Loaded data is shown in a simple semantic table.
+
+How it works:
+
+- once the selected category has finished loading, the page renders the results table
+- the table chooses its columns based on the current category
+- the transport categories use the specific fields required by the brief
+- films use `title`, while the other categories mainly use `name`-based records
+
+Current category mappings:
+
+- `people`
+  - `Name`
+  - `Height`
+  - `Mass`
+  - `Gender`
+  - `Birth Year`
+
+- `planets`
+  - `Name`
+  - `Climate`
+  - `Terrain`
+  - `Population`
+
+- `species`
+  - `Name`
+  - `Classification`
+  - `Language`
+  - `Average Lifespan`
+
+- `films`
+  - `Title`
+  - `Director`
+  - `Producer`
+  - `Release Date`
+
+- `starships`
+  - `Name`
+  - `Model`
+  - `Manufacturer`
+  - `Cost in Credits`
+  - `Length`
+  - `Crew`
+  - `Passengers`
+  - `Cargo Capacity`
+
+- `vehicles`
+  - `Name`
+  - `Model`
+  - `Manufacturer`
+  - `Cost in Credits`
+  - `Length`
+  - `Crew`
+  - `Passengers`
+  - `Cargo Capacity`
+
+Why this approach was chosen:
+
+- it keeps the data easy to scan
+- it allows category-specific fields without adding route complexity
+- it directly supports the transportation requirement from the brief
+
+## Loading and Error States
+
+The page shows clear feedback while data is loading or when a request fails.
+
+How it works:
+
+- when a category fetch starts, the app shows a loading message
+- if the request fails, the app clears the stale data and shows an inline error message
+- if the request succeeds, the app shows how many results are currently being displayed
+
+Why this approach was chosen:
+
+- it satisfies the requirement for a clear loading state
+- it gives the user feedback without adding extra screens or modals
+- it keeps status handling close to the page state that controls it
 
 ## Search Behavior
 
@@ -153,6 +265,53 @@ Why this approach was chosen:
 - it keeps the implementation simple and easy to explain
 - it avoids unnecessary extra API calls
 - it works well with the requirement to fetch the full dataset for each category
+
+## Sorting Behavior
+
+Sorting is implemented as a simple client-side sort on the already fetched
+category data.
+
+How it works:
+
+- when the user selects a category, the app fetches the full dataset for that category from SWAPI
+- the app filters the loaded results using the search input
+- the filtered results are then sorted in the browser before being rendered
+- no additional API request is made when the sort option changes
+
+Sort field by category:
+
+- `films`
+  - sorted by `title`
+
+- all other supported categories
+  - sorted by `name`
+
+Sort direction options:
+
+- `A-Z`
+- `Z-A`
+
+In this context, sorting also happens in memory, which means the app sorts the
+results already stored in React state while the page is open. It does not fetch
+a new sorted list from the API.
+
+Why this approach was chosen:
+
+- it satisfies the task requirement to sort by `name` or `title`
+- it keeps the implementation simple and easy to explain
+- it avoids unnecessary extra API calls
+- it works naturally with the existing client-side search flow
+
+## Accessibility
+
+The app is intended to cover basic WCAG 2.2 Level A/AA expectations through:
+
+- semantic HTML
+- labelled inputs
+- visible focus states
+- sufficient color contrast
+- accessible table markup
+- clear loading and error feedback
 
 ## Getting Started
 

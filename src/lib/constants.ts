@@ -33,6 +33,7 @@ export const DEFAULT_CATEGORY: SwapiCategory = "people";
 // Provides the default saved state for a single category.
 export const DEFAULT_VIEW_STATE: CategoryViewState = {
   search: "",
+  sortOrder: "asc",
 };
 
 // Creates the initial saved state object for every supported category.

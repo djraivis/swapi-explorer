@@ -10,6 +10,7 @@ export type SwapiCategory =
 // Represents the saved search state for one category.
 export type CategoryViewState = {
   search: string;
+  sortOrder: "asc" | "desc";
 };
 
 // Stores saved view state for every supported category.

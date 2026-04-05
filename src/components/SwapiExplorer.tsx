@@ -13,6 +13,7 @@ import type { SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
 
 type SwapiItem = Record<string, unknown>;
+type SortOrder = "asc" | "desc";
 
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
@@ -21,6 +22,8 @@ export function SwapiExplorer() {
     useState<SwapiCategory>(DEFAULT_CATEGORY);
   // Stores the current search input value.
   const [searchValue, setSearchValue] = useState("");
+  // Stores the current alphabetical sort direction.
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
   // Holds the fetched records for the selected category.
   const [items, setItems] = useState<unknown[]>([]);
   // Controls the visible loading message while data is being fetched.
@@ -45,6 +48,23 @@ export function SwapiExplorer() {
     }
 
     return valueToSearch.toLowerCase().includes(searchTerm);
+  });
+
+  // Sorts the filtered results by title for films and name for other categories.
+  const sortedItems = [...filteredItems].sort((firstItem, secondItem) => {
+    const firstRow = firstItem as SwapiItem;
+    const secondRow = secondItem as SwapiItem;
+
+    const firstValue =
+      selectedCategory === "films" ? firstRow.title : firstRow.name;
+    const secondValue =
+      selectedCategory === "films" ? secondRow.title : secondRow.name;
+
+    const firstText = typeof firstValue === "string" ? firstValue : "";
+    const secondText = typeof secondValue === "string" ? secondValue : "";
+    const result = firstText.localeCompare(secondText);
+
+    return sortOrder === "asc" ? result : result * -1;
   });
 
   // Fetches the full dataset whenever the user selects a new category.
@@ -136,11 +156,28 @@ export function SwapiExplorer() {
                 onChange={(event) => setSearchValue(event.target.value)}
               />
             </div>
+
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="sortOrder">
+                Sort
+              </label>
+              <select
+                id="sortOrder"
+                className={styles.input}
+                value={sortOrder}
+                onChange={(event) =>
+                  setSortOrder(event.target.value as SortOrder)
+                }
+              >
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+            </div>
           </div>
 
           <p className={styles.helperText}>
-            Search will be wired up next. Category changes already trigger a new
-            fetch.
+            Category changes trigger a new fetch. Search and sorting happen in
+            the browser using the loaded results.
           </p>
 
           {/* Announces loading, success, and error updates to the user. */}
@@ -159,7 +196,7 @@ export function SwapiExplorer() {
 
             {!isLoading && !errorMessage ? (
               <p className={styles.statusMessage}>
-                Showing {filteredItems.length} of {items.length}{" "}
+                Showing {sortedItems.length} of {items.length}{" "}
                 {CATEGORY_LABELS[selectedCategory].toLowerCase()}.
               </p>
             ) : null}
@@ -167,7 +204,7 @@ export function SwapiExplorer() {
 
           {!isLoading && !errorMessage ? (
             <ResultsTable
-              items={filteredItems}
+              items={sortedItems}
               selectedCategory={selectedCategory}
             />
           ) : null}
