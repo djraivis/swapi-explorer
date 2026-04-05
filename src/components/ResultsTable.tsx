@@ -6,6 +6,7 @@ import styles from "./ResultsTable.module.css";
 type ResultsTableProps = {
   items: unknown[];
   selectedCategory: SwapiCategory;
+  totalItems: number;
 };
 
 type SwapiRow = Record<string, unknown>;
@@ -14,6 +15,7 @@ type SwapiRow = Record<string, unknown>;
 export function ResultsTable({
   items,
   selectedCategory,
+  totalItems,
 }: ResultsTableProps) {
   // Shows a simple message instead of an empty table when there is no data.
   if (items.length === 0) {
@@ -30,6 +32,9 @@ export function ResultsTable({
   return (
     <div className={styles.wrapper}>
       <table className={styles.table}>
+        <caption className={styles.caption}>
+          {getCaptionText(selectedCategory, items.length, totalItems)}
+        </caption>
         <thead>
           <tr>
             {tableHeaders.map((header) => (
@@ -55,6 +60,20 @@ export function ResultsTable({
       </table>
     </div>
   );
+}
+
+// Builds a short caption that names the category and shows visible result counts.
+function getCaptionText(
+  category: SwapiCategory,
+  visibleItems: number,
+  totalItems: number
+) {
+  const label =
+    category === "films"
+      ? "Film results"
+      : `${category.charAt(0).toUpperCase()}${category.slice(1)} results`;
+
+  return `${label}: showing ${visibleItems} of ${totalItems}`;
 }
 
 // Returns the correct table columns for the selected SWAPI category.

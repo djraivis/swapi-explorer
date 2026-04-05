@@ -38,6 +38,132 @@ The application is being built to support:
 - basic WCAG 2.2 Level A/AA expectations
 - styling with CSS Modules
 
+## Development Checklist
+
+Use this checklist to track progress against the implementation plan.
+
+Completed:
+
+- [x] Scaffold the Next.js app
+- [x] Inspect the generated starter files
+- [x] Remove the default starter/demo code and simplify the foundation
+- [x] Create the main app shell
+- [x] Add shared SWAPI types and constants
+- [x] Add the SWAPI fetch helper
+- [x] Add the first explorer controls UI
+- [x] Wire category selection into state and fetch on change
+- [x] Show loading, error, and loaded-count status
+- [x] Render fetched data in a results table
+- [x] Add client-side search filtering
+- [x] Add client-side sorting
+- [x] Persist recent category, search state, and sort state
+- [x] Polish the reload behavior so the app restores saved state before fetching
+- [x] Improve small UX wording, like the empty-state message and helper text
+
+Remaining:
+
+- [x] Final accessibility pass
+- [ ] Final README and submission cleanup
+
+## Accessibility Checklist
+
+Use this checklist during the final WCAG 2.2 Level A/AA review.
+
+| Area | What to check | Status |
+| --- | --- | --- |
+| Form labels | Category, search, and sort controls all have visible labels | [x] |
+| Keyboard focus | Focus states are visible and easy to notice on all interactive elements | [x] |
+| Loading state | A clear loading message is shown while data is being fetched | [x] |
+| Error state | Error messages are visible and understandable | [x] |
+| Status updates | Status text is announced in a live region where appropriate | [x] |
+| Table semantics | Table uses semantic markup such as `table`, `thead`, `tbody`, and column headers | [x] |
+| Empty state | Empty-state text is clear when no results match the current search | [x] |
+| Color contrast | Text and controls remain readable with sufficient contrast | [x] |
+| Responsive layout | Controls and table remain usable on smaller screens | [x] |
+| Touch target size | Inputs and selects remain comfortably usable on touch devices | [x] |
+
+## Keyboard and Screen Reader Audit
+
+### Focusable Elements
+
+- Category `<select>`
+  - keyboard-focusable
+  - should be reachable with `Tab`
+  - should be read by screen readers
+
+- Search `<input>`
+  - keyboard-focusable
+  - should be reachable with `Tab`
+  - should be read by screen readers
+
+- Sort `<select>`
+  - keyboard-focusable
+  - should be reachable with `Tab`
+  - should be read by screen readers
+
+### Not Focusable, But Readable
+
+- Page title (`<h1>`)
+  - not keyboard-focusable with `Tab`
+  - should be readable by screen readers
+
+- Subtitle paragraph
+  - not keyboard-focusable with `Tab`
+  - should be readable by screen readers
+
+- Loading message
+  - not keyboard-focusable
+  - should be announced by screen readers
+
+- Error message
+  - not keyboard-focusable
+  - should be announced by screen readers
+
+- Table caption
+  - not keyboard-focusable
+  - should be readable by screen readers as table context
+
+- Table headers and cells
+  - not keyboard-focusable with `Tab`
+  - should be readable through screen reader table navigation
+
+- Empty-state message
+  - not keyboard-focusable
+  - should be readable by screen readers
+
+- Hidden success announcement
+  - not keyboard-focusable
+  - should be announced by screen readers when results update
+
+### Not Focusable and Not Intended to Be Read
+
+- Decorative loading bar
+  - not keyboard-focusable
+  - marked as decorative and should not be announced
+
+### Keyboard Order Checklist
+
+- [x] `Tab` reaches Category
+- [x] `Tab` reaches Search
+- [x] `Tab` reaches Sort
+- [x] Focus ring is visible on all three controls
+- [x] Clicking each visible label focuses the matching control
+
+### Screen Reader Checklist
+
+- [x] Screen reader reads the page title
+- [x] Screen reader reads the subtitle
+- [x] Screen reader announces the loading state
+- [x] Screen reader announces the error state
+- [x] Screen reader reads the table caption
+- [x] Screen reader can navigate table headers and cells
+- [x] Screen reader announces the hidden success status when results update
+
+Note:
+
+- a full page refresh is announced very clearly by VoiceOver because the whole page reloads
+- category-to-category loading updates happen inside the page and can be harder to hear when the response is very fast
+
 ## Approach
 
 This solution is intentionally kept simple:

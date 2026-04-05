@@ -21,6 +21,16 @@ function isSwapiCategory(value: string): value is SwapiCategory {
   return SWAPI_CATEGORIES.includes(value as SwapiCategory);
 }
 
+function getResultsAnnouncement(
+  category: SwapiCategory,
+  visibleItems: number,
+  totalItems: number
+) {
+  const label = CATEGORY_LABELS[category];
+
+  return `${label} results: showing ${visibleItems} of ${totalItems}.`;
+}
+
 // Holds the main page layout and will contain the explorer UI.
 export function SwapiExplorer() {
   // Tracks which SWAPI category the user is currently viewing.
@@ -227,7 +237,6 @@ export function SwapiExplorer() {
       <div className={styles.container}>
         {/* Introduces the page and explains what the app does. */}
         <header className={styles.header}>
-          <p className={styles.eyebrow}>Star Wars Data Browser</p>
           <h1 className={styles.title}>SWAPI Explorer</h1>
           <p className={styles.description}>
             Browse, search, and sort Star Wars data from SWAPI.
@@ -291,28 +300,50 @@ export function SwapiExplorer() {
             </div>
           </div>
 
-          <p className={styles.helperText}>
-            Choose a category, then search and sort the loaded results.
-          </p>
-
-          {/* Announces loading, success, and error updates to the user. */}
-          <div aria-live="polite" className={styles.statusBlock}>
+          {/* Announces loading and error updates to assistive technology. */}
+          <div className={styles.statusBlock}>
             {isLoading ? (
-              <p className={styles.statusMessage}>
-                Loading {CATEGORY_LABELS[selectedCategory].toLowerCase()}...
-              </p>
+              <div
+                aria-atomic="true"
+                aria-live="polite"
+                className={styles.loadingState}
+                role="status"
+              >
+                <p className={styles.statusMessage}>
+                  Loading {CATEGORY_LABELS[selectedCategory].toLowerCase()}...
+                </p>
+                <div
+                  aria-hidden="true"
+                  className={styles.loadingBar}
+                >
+                  <span className={styles.loadingBarFill} />
+                </div>
+              </div>
             ) : null}
 
             {errorMessage ? (
-              <p className={styles.errorMessage} role="alert">
+              <p
+                aria-atomic="true"
+                aria-live="assertive"
+                className={styles.errorMessage}
+                role="alert"
+              >
                 {errorMessage}
               </p>
             ) : null}
 
             {!isLoading && !errorMessage ? (
-              <p className={styles.statusMessage}>
-                Showing {sortedItems.length} of {items.length}{" "}
-                {CATEGORY_LABELS[selectedCategory].toLowerCase()}.
+              <p
+                aria-atomic="true"
+                aria-live="polite"
+                className={styles.srOnly}
+                role="status"
+              >
+                {getResultsAnnouncement(
+                  selectedCategory,
+                  sortedItems.length,
+                  items.length
+                )}
               </p>
             ) : null}
           </div>
@@ -321,6 +352,7 @@ export function SwapiExplorer() {
             <ResultsTable
               items={sortedItems}
               selectedCategory={selectedCategory}
+              totalItems={items.length}
             />
           ) : null}
         </section>
