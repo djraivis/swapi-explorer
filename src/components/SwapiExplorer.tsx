@@ -36,6 +36,8 @@ export function SwapiExplorer() {
   const [isLoading, setIsLoading] = useState(true);
   // Stores a user-facing error message if the request fails.
   const [errorMessage, setErrorMessage] = useState("");
+  // Waits for saved browser state before starting the first fetch.
+  const [hasRestoredState, setHasRestoredState] = useState(false);
 
   // PERSISTENCE: RESTORES SAVED CATEGORY, SEARCH, AND SORT STATE FROM LOCALSTORAGE.
   useEffect(() => {
@@ -64,6 +66,8 @@ export function SwapiExplorer() {
         window.localStorage.removeItem(STORAGE_KEYS.categoryState);
       }
     }
+
+    setHasRestoredState(true);
   }, []);
 
   // Filters the loaded results using title for films and name for other categories.
@@ -104,6 +108,10 @@ export function SwapiExplorer() {
 
   // PERSISTENCE: RESTORES THE SAVED SEARCH AND SORT STATE WHEN THE CATEGORY CHANGES.
   useEffect(() => {
+    if (!hasRestoredState) {
+      return;
+    }
+
     const savedCategoryState = window.localStorage.getItem(
       STORAGE_KEYS.categoryState
     );
@@ -124,10 +132,14 @@ export function SwapiExplorer() {
       setSearchValue("");
       setSortOrder("asc");
     }
-  }, [selectedCategory]);
+  }, [hasRestoredState, selectedCategory]);
 
   // Fetches the full dataset whenever the user selects a new category.
   useEffect(() => {
+    if (!hasRestoredState) {
+      return;
+    }
+
     // Prevents state updates if the component unmounts before the fetch finishes.
     let isCancelled = false;
 
@@ -163,10 +175,14 @@ export function SwapiExplorer() {
     return () => {
       isCancelled = true;
     };
-  }, [selectedCategory]);
+  }, [hasRestoredState, selectedCategory]);
 
   // PERSISTENCE: SAVES THE LATEST CATEGORY, SEARCH, AND SORT STATE TO LOCALSTORAGE.
   useEffect(() => {
+    if (!hasRestoredState) {
+      return;
+    }
+
     window.localStorage.setItem(STORAGE_KEYS.recentCategory, selectedCategory);
 
     const savedCategoryState = window.localStorage.getItem(
@@ -204,7 +220,7 @@ export function SwapiExplorer() {
         JSON.stringify(nextState)
       );
     }
-  }, [searchValue, selectedCategory, sortOrder]);
+  }, [hasRestoredState, searchValue, selectedCategory, sortOrder]);
 
   return (
     <main className={styles.page}>
@@ -276,8 +292,7 @@ export function SwapiExplorer() {
           </div>
 
           <p className={styles.helperText}>
-            Category changes trigger a new fetch. Search and sorting happen in
-            the browser using the loaded results.
+            Choose a category, then search and sort the loaded results.
           </p>
 
           {/* Announces loading, success, and error updates to the user. */}

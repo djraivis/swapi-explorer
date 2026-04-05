@@ -17,7 +17,11 @@ export function ResultsTable({
 }: ResultsTableProps) {
   // Shows a simple message instead of an empty table when there is no data.
   if (items.length === 0) {
-    return <p className={styles.emptyState}>No items to display yet.</p>;
+    return (
+      <p className={styles.emptyState}>
+        No matching results found for this category.
+      </p>
+    );
   }
 
   // Chooses the columns to display for the current category.

@@ -43,8 +43,9 @@
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(180px, 220px) minmax(260px, 1fr) minmax(140px, 180px);
   gap: 16px;
+  align-items: end;
 }
 
 .field {

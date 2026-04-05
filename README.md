@@ -319,6 +319,20 @@ What is persisted:
 - the search value for each category
 - the sort order for each category
 
+What is not persisted:
+
+- the fetched SWAPI results themselves are not stored in `localStorage`
+- fetched data only lives in React state while the page is open
+- React state = what the app is using now
+- `localStorage` = what the app remembers for later
+- SWAPI data is always fetched again from the API after refresh
+
+Reload behavior:
+
+- on refresh, the app first restores the saved category and view state from `localStorage`
+- only after that restore step does it fetch the selected category data
+- this avoids an unnecessary initial fetch for the default category before the saved category is applied
+
 Why this approach was chosen:
 
 - it satisfies the requirement to remember the most recently searched category
