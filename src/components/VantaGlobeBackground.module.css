@@ -1,0 +1,11 @@
+.background {
+  position: fixed;
+  inset: 0;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background :global(canvas) {
+  display: block;
+}

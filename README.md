@@ -2,30 +2,22 @@
 
 A small Next.js and TypeScript application for browsing, searching, and sorting Star Wars data from SWAPI.
 
-## Current Status
+## Implemented Features
 
-Implemented so far:
-
-- Next.js app scaffolded
-- category selection
-- full category fetching across all SWAPI pages
-- results table rendering
-- loading and error states
-- client-side search
-- client-side sorting
-- category-specific table columns
+- category selection across all supported SWAPI categories
+- full dataset fetching across all SWAPI pages
+- semantic results table with category-specific columns
+- client-side search filtering
+- client-side sorting by `name` or `title`
+- clear loading and error states
+- localStorage persistence for recent category, search, and sort state
 - CSS Modules styling
-
-Still to complete:
-
-- persistence for recent category
-- persistence for per-category search and sort state
-- final accessibility pass
-- final README/submission polish
+- optional decorative Vanta Globe background, isolated from the core explorer logic
+- accessibility review with keyboard and screen reader checks
 
 ## Acceptance Criteria Mapping
 
-The application is being built to support:
+The application supports:
 
 - selecting any available SWAPI category
 - searching within the selected category
@@ -38,49 +30,39 @@ The application is being built to support:
 - basic WCAG 2.2 Level A/AA expectations
 - styling with CSS Modules
 
-## Development Checklist
+## Implementation History
 
-Use this checklist to track progress against the implementation plan.
+The project was built step by step in small commits:
 
-Completed:
-
-- [x] Scaffold the Next.js app
-- [x] Inspect the generated starter files
-- [x] Remove the default starter/demo code and simplify the foundation
-- [x] Create the main app shell
-- [x] Add shared SWAPI types and constants
-- [x] Add the SWAPI fetch helper
-- [x] Add the first explorer controls UI
-- [x] Wire category selection into state and fetch on change
-- [x] Show loading, error, and loaded-count status
-- [x] Render fetched data in a results table
-- [x] Add client-side search filtering
-- [x] Add client-side sorting
-- [x] Persist recent category, search state, and sort state
-- [x] Polish the reload behavior so the app restores saved state before fetching
-- [x] Improve small UX wording, like the empty-state message and helper text
-
-Remaining:
-
-- [x] Final accessibility pass
-- [ ] Final README and submission cleanup
+1. `73d7add` Initial project setup
+2. `2c37b6d` Create main app shell
+3. `9d586cf` Add shared SWAPI types and constants
+4. `2d89f4a` Add SWAPI fetch helper
+5. `728a576` Add explorer controls
+6. `86e773c` Add data fetching and status states
+7. `a9e42a3` Render SWAPI results table
+8. `a25bc7f` Add client-side search filtering
+9. `d17847b` Add client-side sorting
+10. `369ee2d` Persist category search and sort state
+11. `e47bdd0` Fix reload state restore and polish UI text
+12. `a3fba21` Polish accessibility and UI details
 
 ## Accessibility Checklist
 
 Use this checklist during the final WCAG 2.2 Level A/AA review.
 
-| Area | What to check | Status |
-| --- | --- | --- |
-| Form labels | Category, search, and sort controls all have visible labels | [x] |
-| Keyboard focus | Focus states are visible and easy to notice on all interactive elements | [x] |
-| Loading state | A clear loading message is shown while data is being fetched | [x] |
-| Error state | Error messages are visible and understandable | [x] |
-| Status updates | Status text is announced in a live region where appropriate | [x] |
-| Table semantics | Table uses semantic markup such as `table`, `thead`, `tbody`, and column headers | [x] |
-| Empty state | Empty-state text is clear when no results match the current search | [x] |
-| Color contrast | Text and controls remain readable with sufficient contrast | [x] |
-| Responsive layout | Controls and table remain usable on smaller screens | [x] |
-| Touch target size | Inputs and selects remain comfortably usable on touch devices | [x] |
+| Area              | What to check                                                                    | Status |
+| ----------------- | -------------------------------------------------------------------------------- | ------ |
+| Form labels       | Category, search, and sort controls all have visible labels                      | [x]    |
+| Keyboard focus    | Focus states are visible and easy to notice on all interactive elements          | [x]    |
+| Loading state     | A clear loading message is shown while data is being fetched                     | [x]    |
+| Error state       | Error messages are visible and understandable                                    | [x]    |
+| Status updates    | Status text is announced in a live region where appropriate                      | [x]    |
+| Table semantics   | Table uses semantic markup such as `table`, `thead`, `tbody`, and column headers | [x]    |
+| Empty state       | Empty-state text is clear when no results match the current search               | [x]    |
+| Color contrast    | Text and controls remain readable with sufficient contrast                       | [x]    |
+| Responsive layout | Controls and table remain usable on smaller screens                              | [x]    |
+| Touch target size | Inputs and selects remain comfortably usable on touch devices                    | [x]    |
 
 ## Keyboard and Screen Reader Audit
 
@@ -159,7 +141,7 @@ Use this checklist during the final WCAG 2.2 Level A/AA review.
 - [x] Screen reader can navigate table headers and cells
 - [x] Screen reader announces the hidden success status when results update
 
-Note:
+Notes:
 
 - a full page refresh is announced very clearly by VoiceOver because the whole page reloads
 - category-to-category loading updates happen inside the page and can be harder to hear when the response is very fast
@@ -193,7 +175,9 @@ swapi-explorer/
 │   │   ├── ResultsTable.module.css
 │   │   ├── ResultsTable.tsx
 │   │   ├── SwapiExplorer.module.css
-│   │   └── SwapiExplorer.tsx
+│   │   ├── SwapiExplorer.tsx
+│   │   ├── VantaGlobeBackground.module.css
+│   │   └── VantaGlobeBackground.tsx
 │   └── lib/
 │       ├── constants.ts
 │       ├── swapi.ts
@@ -208,7 +192,7 @@ swapi-explorer/
 └── yarn.lock
 ```
 
-The `components` and `lib` folders are the planned target structure for the main app implementation.
+The `components` and `lib` folders hold the main application UI and shared logic.
 
 ## File Responsibilities
 
@@ -235,6 +219,31 @@ UI components for the application.
   Table component for rendering category results.
 - `ResultsTable.module.css`
   Styles for the results table.
+- `VantaGlobeBackground.tsx`
+  Optional decorative background component that keeps the Vanta setup outside the main explorer logic.
+- `VantaGlobeBackground.module.css`
+  Masking and presentation styles for the decorative globe background.
+
+## Optional Visual Enhancement
+
+The app includes a small decorative Vanta Globe background effect.
+
+Why it was added:
+
+- the core task UI is intentionally simple and readable
+- the globe gives the page a bit more visual character without changing the app flow
+- the effect loosely supports the Star Wars theme by suggesting a planet or galactic map
+
+Why it is isolated:
+
+- it was not part of the acceptance criteria
+- it should not affect how the main task logic is reviewed
+- the implementation lives in its own component instead of being mixed into the main explorer logic
+
+Implementation note:
+
+- the globe is an optional visual layer only
+- fetching, search, sorting, persistence, accessibility, and table rendering all remain in the main task-focused components
 
 ### `src/lib`
 
@@ -354,7 +363,7 @@ How it works:
 
 - when a category fetch starts, the app shows a loading message
 - if the request fails, the app clears the stale data and shows an inline error message
-- if the request succeeds, the app shows how many results are currently being displayed
+- when the request succeeds, the results table caption shows the visible and total result count
 
 Why this approach was chosen:
 
@@ -466,6 +475,44 @@ Why this approach was chosen:
 - it keeps the implementation simple and browser-native
 - it avoids adding context, custom hooks, or extra libraries
 
+## Possible Next Steps
+
+These are optional improvements beyond the current task requirements:
+
+- resolve linked SWAPI resources into readable related data instead of only showing the current category row data
+- use relationship data from the API to surface cross-category recommendations, for example:
+  - films linked to a selected person
+  - planets linked to a selected film
+  - characters, species, vehicles, or starships linked to a selected film
+- add a lightweight related-resources panel or drill-down view for exploring those API connections
+
+## Optional Follow-Up Prototype
+
+As a separate follow-up concept, I built a small standalone prototype to explore how SWAPI relationship data could be used to surface related resources and support drill-down navigation across categories.
+
+This prototype is not part of the main submission and was not required by the acceptance criteria. I kept it separate on purpose as a focused exploration of what a good next step could look like.
+
+The prototype is built with plain HTML, CSS, and JavaScript only. It demonstrates a simple flow:
+
+- load a category
+- browse a list of items
+- select an item
+- view its related linked resources
+- continue exploring connected resources across categories
+
+Example relationships shown in the prototype include:
+
+- person -> films, vehicles, starships
+- film -> planets, characters, species, vehicles, starships
+- planet -> residents and films
+
+I built this mainly to better understand how SWAPI resources relate to one another and to explore how that relationship data could support a future UI direction beyond the required scope.
+
+If useful during the interview, this prototype can also serve as a discussion point for how the product could evolve further while keeping the main submission focused on the requested requirements.
+
+Prototype repo: [https://github.com/djraivis/swapi-related-resources-prototype](https://github.com/djraivis/swapi-related-resources-prototype)
+Prototype URL: [https://swapi-related-resources-prototype.netlify.app](https://swapi-related-resources-prototype.netlify.app)
+
 ## Accessibility
 
 The app is intended to cover basic WCAG 2.2 Level A/AA expectations through:
@@ -519,8 +566,8 @@ All code and decisions are being kept intentionally simple and manually reviewed
 
 Public repository:
 
-- Add GitHub repository URL here
+- [GitHub](https://github.com/djraivis/swapi-explorer)
 
 Public deployment:
 
-- Add deployed URL here if available
+- [Hosted App on Netlify](https://swapi-explorer-app.netlify.app/)

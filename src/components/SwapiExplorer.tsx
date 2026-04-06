@@ -10,6 +10,7 @@ import {
   STORAGE_KEYS,
 } from "@/lib/constants";
 import { ResultsTable } from "@/components/ResultsTable";
+import { VantaGlobeBackground } from "@/components/VantaGlobeBackground";
 import { fetchAllCategoryItems } from "@/lib/swapi";
 import type { SavedCategoryState, SwapiCategory } from "@/lib/types";
 import styles from "./SwapiExplorer.module.css";
@@ -234,10 +235,15 @@ export function SwapiExplorer() {
 
   return (
     <main className={styles.page}>
+      <VantaGlobeBackground />
+
       <div className={styles.container}>
         {/* Introduces the page and explains what the app does. */}
         <header className={styles.header}>
-          <h1 className={styles.title}>SWAPI Explorer</h1>
+          <h1 className={styles.title}>Star Wars API</h1>
+          <p className={styles.currentCategory}>
+            SWAPI Explorer &gt; {CATEGORY_LABELS[selectedCategory]}
+          </p>
           <p className={styles.description}>
             Browse, search, and sort Star Wars data from SWAPI.
           </p>

@@ -1,9 +1,17 @@
 .page {
+  position: relative;
   min-height: 100vh;
   padding: 48px 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgb(255 255 255 / 0.2), transparent 22%),
+    radial-gradient(circle at 88% 18%, rgb(96 165 250 / 0.18), transparent 24%),
+    linear-gradient(180deg, #1e293b 0%, #0f172a 52%, #020617 100%);
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -26,19 +34,27 @@
   margin-bottom: 12px;
   font-size: 40px;
   line-height: 1.1;
-  color: #0f172a;
+  color: #f8fafc;
+}
+
+.currentCategory {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #facc15;
 }
 
 .description {
   max-width: 640px;
-  color: #334155;
+  color: rgb(241 245 249 / 0.88);
 }
 
 .panel {
   padding: 24px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d7bf87;
   border-radius: 12px;
-  background: #ffffff;
+  background: rgb(255 251 241 / 0.92);
+  backdrop-filter: blur(10px);
 }
 
 .controls {
