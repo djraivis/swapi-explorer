@@ -1,3 +1,4 @@
+import { SwapiListItem } from "@/lib/types";
 import { slugify } from "@/utils/wizard";
 import Link from "next/link";
 
@@ -20,16 +21,16 @@ export default async function Page({
   console.log("This is category", category);
   console.log(categoryData.length);
   console.log(search);
-  
- return (
+
+  return (
     <div>
-        {categoryData.map((item)=>(
-            <div>
-                <Link href={`${category}/${slugify(item.name?item.name:item.title)}`}>
-                {item.name?item.name:item.title}
-                </Link>
-            </div>
-        ))}
+      {categoryData.map((item: SwapiListItem) => (
+        <div key={item.url}>
+          <Link href={`/${category}/${slugify(item.name ? item.name : item.title || "")}`}>
+            {item.name ? item.name : item.title}
+          </Link>
+        </div>
+      ))}
     </div>
- )
+  )
 }

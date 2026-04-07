@@ -7,7 +7,7 @@ export default function GlobalSearch() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (value) {

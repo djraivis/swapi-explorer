@@ -1,12 +1,12 @@
 import { unslugify } from "@/utils/wizard";
 
-export default async function ItemPage({
+export default async function FilmsPage({
   params,
 }: {
   params: { item: string };
 }) {
   const { item } = await params;
-  const response = await fetch(`https://swapi.dev/api/planets?search=${unslugify(item)}`);
+  const response = await fetch(`https://swapi.dev/api/films?search=${unslugify(item)}`);
  
   if (!response.ok) return null;
 
@@ -16,7 +16,7 @@ export default async function ItemPage({
  return (
     <div>
       <div>
-        This is a planet
+        This is a film
       </div>
         {itemData.name?itemData.name:itemData.title}
     </div>

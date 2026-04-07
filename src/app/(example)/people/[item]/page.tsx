@@ -16,7 +16,7 @@ export default async function ItemPage({
  return (
     <div>
       <div>
-        I am 
+        This is a person
       </div>
         {itemData.name?itemData.name:itemData.title}
     </div>

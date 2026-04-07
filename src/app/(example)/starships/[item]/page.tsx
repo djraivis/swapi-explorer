@@ -6,7 +6,7 @@ export default async function ItemPage({
   params: { item: string };
 }) {
   const { item } = await params;
-  const response = await fetch(`https://swapi.dev/api/planets?search=${unslugify(item)}`);
+  const response = await fetch(`https://swapi.dev/api/starships?search=${unslugify(item)}`);
  
   if (!response.ok) return null;
 
@@ -16,7 +16,7 @@ export default async function ItemPage({
  return (
     <div>
       <div>
-        This is a planet
+        This is a starship
       </div>
         {itemData.name?itemData.name:itemData.title}
     </div>

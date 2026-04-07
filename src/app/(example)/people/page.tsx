@@ -1,7 +1,8 @@
+import { SwapiListItem } from "@/lib/types";
 import { slugify } from "@/utils/wizard";
 import Link from "next/link";
 
-export default async function PeoplePage({
+export default async function PeopleItemPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -13,16 +14,17 @@ export default async function PeoplePage({
 
   const data = await response.json();
   const categoryData = data.results
-  
- return (
+
+  return (
     <div>
-        {categoryData.map((item)=>(
-            <div>
-                <Link href={`people/${slugify(item.name?item.name:item.title)}`}>
-                {item.name?item.name:item.title}
-                </Link>
-            </div>
-        ))}
+      <div style={{ color: "blue", fontSize: "60px" }}>People</div>
+      {categoryData.map((item: SwapiListItem) => (
+        <div key={item.url}>
+          <Link href={`/people/${slugify(item.name ? item.name : item.title || "")}`}>
+            {item.name ? item.name : item.title}
+          </Link>
+        </div>
+      ))}
     </div>
- )
+  )
 }
