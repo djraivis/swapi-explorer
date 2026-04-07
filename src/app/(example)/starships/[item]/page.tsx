@@ -1,3 +1,5 @@
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { unslugify } from "@/utils/wizard";
 
 export default async function ItemPage({
@@ -8,10 +10,26 @@ export default async function ItemPage({
   const { item } = await params;
   const response = await fetch(`https://swapi.dev/api/starships?search=${unslugify(item)}`);
  
-  if (!response.ok) return null;
+  if (!response.ok) {
+    return (
+      <ErrorState
+        title="Unable to load starship"
+        message="The API request failed. Please try again later."
+      />
+    );
+  }
 
   const data = await response.json();
   const itemData = data.results[0]
+
+  if (!itemData) {
+    return (
+      <EmptyState
+        title="Starship not found"
+        message="No item matched this slug."
+      />
+    );
+  }
   
  return (
     <div>

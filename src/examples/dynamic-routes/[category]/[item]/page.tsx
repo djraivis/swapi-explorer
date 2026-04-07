@@ -16,9 +16,9 @@ export default async function Page({
   console.log("This is category", category);
   console.log("This is item", data);
   
- return (
+  return (
     <div>
         {itemData.name?itemData.name:itemData.title}
     </div>
- )
+  )
 }

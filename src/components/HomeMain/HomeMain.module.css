@@ -1,0 +1,75 @@
+.main {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.hero {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto 32px;
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1;
+  color: #0f172a;
+}
+
+.description {
+  max-width: 640px;
+  font-size: 18px;
+  color: #334155;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.88);
+  box-shadow: 0 16px 40px rgb(15 23 42 / 0.08);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: #2563eb;
+  box-shadow: 0 20px 48px rgb(37 99 235 / 0.12);
+  transform: translateY(-2px);
+}
+
+.cardLabel {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.cardMeta {
+  font-size: 14px;
+  color: #475569;
+}

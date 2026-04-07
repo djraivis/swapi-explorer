@@ -2,7 +2,9 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
-export default function GlobalSearch() {
+import styles from "./search.module.css";
+
+export function GlobalSearch() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -21,6 +23,8 @@ export default function GlobalSearch() {
 
   return (
     <input
+      aria-label="Search current category"
+      className={styles.input}
       placeholder="Search..."
       onChange={(e) => handleChange(e.target.value)}
     />

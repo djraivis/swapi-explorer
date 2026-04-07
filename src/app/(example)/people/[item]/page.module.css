@@ -1,0 +1,43 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.panel {
+  padding: 28px;
+  border: 1px solid #cbd5e1;
+  border-radius: 22px;
+  background: rgb(255 255 255 / 0.88);
+  box-shadow: 0 18px 44px rgb(15 23 42 / 0.08);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.title {
+  margin-bottom: 12px;
+  font-size: clamp(34px, 6vw, 52px);
+  line-height: 1;
+  color: #0f172a;
+}
+
+.description {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #475569;
+}
+
+.meta {
+  display: inline-flex;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 700;
+}

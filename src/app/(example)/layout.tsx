@@ -1,32 +1,20 @@
 import type { ReactNode } from "react";
-import { Suspense } from "react";
-import GlobalSearch from "@/components/search";
-import { unslugify } from "@/utils/wizard";
-import Link from "next/link";
 
-export default async function Layout({
+import { AppFooter } from "@/components/AppFooter/AppFooter";
+import { AppHeader } from "@/components/AppHeader/AppHeader";
+
+import styles from "./layout.module.css";
+
+export default function Layout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const response = await fetch(`https://swapi.dev/api/`);
-
-  if (!response.ok) return null;
-  const data = await response.json();
-
   return (
-    <>
-      <div>
-        {Object.keys(data).map((key) => (
-          <Link key={key} href={`/${key}`}>
-            {unslugify(key)}
-          </Link>
-        ))}
-        <Suspense fallback={<div>Loading search...</div>}>
-          <GlobalSearch />
-        </Suspense>
-      </div>
-      {children}
-    </>
+    <div className={styles.page}>
+      <AppHeader />
+      <main className={styles.content}>{children}</main>
+      <AppFooter />
+    </div>
   );
 }

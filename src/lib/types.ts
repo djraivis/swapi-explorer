@@ -6,12 +6,3 @@ export type SwapiListItem = {
   name?: string
   title?: string
 }
-
-// Represents the saved search state for one category.
-export type CategoryViewState = {
-  search: string
-  sortOrder: "asc" | "desc"
-}
-
-// Stores saved view state for every supported category.
-export type SavedCategoryState = Record<SwapiCategory, CategoryViewState>
