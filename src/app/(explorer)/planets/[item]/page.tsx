@@ -2,6 +2,8 @@ import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { unslugify } from "@/utils/wizard";
 
+import styles from "./page.module.css";
+
 export default async function ItemPage({
   params,
 }: {
@@ -9,7 +11,7 @@ export default async function ItemPage({
 }) {
   const { item } = await params;
   const response = await fetch(`https://swapi.dev/api/planets?search=${unslugify(item)}`);
- 
+
   if (!response.ok) {
     return (
       <ErrorState
@@ -30,13 +32,17 @@ export default async function ItemPage({
       />
     );
   }
-  
- return (
-    <div>
-      <div>
-        This is a planet
-      </div>
-        {itemData.name?itemData.name:itemData.title}
-    </div>
- )
+
+  return (
+    <main className={styles.page}>
+      <section className={styles.panel}>
+        <p className={styles.eyebrow}>Planet Profile</p>
+        <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
+        <p className={styles.description}>
+          This is a planet from the Star Wars API.
+        </p>
+        <p className={styles.meta}>Planets</p>
+      </section>
+    </main>
+  )
 }

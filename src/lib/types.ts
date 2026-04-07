@@ -6,3 +6,13 @@ export type SwapiListItem = {
   name?: string
   title?: string
 }
+
+export type TransportItem = SwapiListItem & {
+  model?: string
+  manufacturer?: string
+  cost_in_credits?: string
+  length?: string
+  crew?: string
+  passengers?: string
+  cargo_capacity?: string
+}

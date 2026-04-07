@@ -1,5 +1,4 @@
 import { AppFooter } from "@/components/AppFooter/AppFooter";
-import { AppHeader } from "@/components/AppHeader/AppHeader";
 import { HomeMain } from "@/components/HomeMain/HomeMain";
 
 import styles from "./page.module.css";
@@ -8,7 +7,6 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div className={styles.page}>
-      {/* <AppHeader showSearch={false} /> */}
       <HomeMain />
       <AppFooter />
     </div>

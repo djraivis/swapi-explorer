@@ -1,6 +1,10 @@
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
+import { TransportDetails } from "@/components/TransportDetails/TransportDetails";
+import type { TransportItem } from "@/lib/types";
 import { unslugify } from "@/utils/wizard";
+
+import styles from "./page.module.css";
 
 export default async function ItemPage({
   params,
@@ -20,7 +24,7 @@ export default async function ItemPage({
   }
 
   const data = await response.json();
-  const itemData = data.results[0]
+  const itemData = data.results[0] as TransportItem | undefined
 
   if (!itemData) {
     return (
@@ -32,11 +36,16 @@ export default async function ItemPage({
   }
   
  return (
-    <div>
-      <div>
-        This is a vehicle
-      </div>
-        {itemData.name?itemData.name:itemData.title}
-    </div>
+    <main className={styles.page}>
+      <section className={styles.panel}>
+        <p className={styles.eyebrow}>Transport Profile</p>
+        <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
+        <p className={styles.description}>
+          This vehicle view shows the required transportation fields from the task brief.
+        </p>
+
+        <TransportDetails item={itemData} />
+      </section>
+    </main>
  )
 }

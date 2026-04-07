@@ -11,7 +11,7 @@ export default async function ItemPage({
 }) {
   const { item } = await params;
   const response = await fetch(`https://swapi.dev/api/people?search=${unslugify(item)}`);
- 
+
   if (!response.ok) {
     return (
       <ErrorState
@@ -32,8 +32,8 @@ export default async function ItemPage({
       />
     );
   }
-  
- return (
+
+  return (
     <main className={styles.page}>
       <section className={styles.panel}>
         <p className={styles.eyebrow}>Character Profile</p>
@@ -44,5 +44,5 @@ export default async function ItemPage({
         <p className={styles.meta}>People</p>
       </section>
     </main>
- )
+  )
 }
