@@ -5,6 +5,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "SWAPI Explorer",
   description: "Browse, search, and sort Star Wars data from SWAPI.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 // Wraps every page with the root HTML structure and global styles.
