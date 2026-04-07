@@ -1,6 +1,6 @@
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
-import { unslugify } from "@/utils/wizard";
+import { findCategoryItemBySlug } from "@/lib/swapi";
 
 import styles from "./page.module.css";
 
@@ -10,9 +10,12 @@ export default async function ItemPage({
   params: { item: string };
 }) {
   const { item } = await params;
-  const response = await fetch(`https://swapi.dev/api/people?search=${unslugify(item)}`);
 
-  if (!response.ok) {
+  let itemData;
+
+  try {
+    itemData = await findCategoryItemBySlug("people", item);
+  } catch {
     return (
       <ErrorState
         title="Unable to load person"
@@ -20,9 +23,6 @@ export default async function ItemPage({
       />
     );
   }
-
-  const data = await response.json();
-  const itemData = data.results[0]
 
   if (!itemData) {
     return (

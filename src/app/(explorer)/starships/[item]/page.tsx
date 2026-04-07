@@ -2,7 +2,7 @@ import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { TransportDetails } from "@/components/TransportDetails/TransportDetails";
 import type { TransportItem } from "@/lib/types";
-import { unslugify } from "@/utils/wizard";
+import { findCategoryItemBySlug } from "@/lib/swapi";
 
 import styles from "./page.module.css";
 
@@ -12,9 +12,12 @@ export default async function ItemPage({
   params: { item: string };
 }) {
   const { item } = await params;
-  const response = await fetch(`https://swapi.dev/api/starships?search=${unslugify(item)}`);
- 
-  if (!response.ok) {
+
+  let itemData: TransportItem | undefined;
+
+  try {
+    itemData = await findCategoryItemBySlug<TransportItem>("starships", item);
+  } catch {
     return (
       <ErrorState
         title="Unable to load starship"
@@ -22,9 +25,6 @@ export default async function ItemPage({
       />
     );
   }
-
-  const data = await response.json();
-  const itemData = data.results[0] as TransportItem | undefined
 
   if (!itemData) {
     return (
