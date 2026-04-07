@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { CATEGORY_LABELS, SWAPI_CATEGORIES } from "@/lib/constants";
 
-import { GlobalSearch } from "../search";
+import { GlobalSearch } from "../Search/Search";
 import styles from "./AppHeader.module.css";
 
 type AppHeaderProps = {

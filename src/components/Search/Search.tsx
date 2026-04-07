@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
-import styles from "./search.module.css";
+import styles from "./Search.module.css";
 
 export function GlobalSearch() {
   const router = useRouter();
