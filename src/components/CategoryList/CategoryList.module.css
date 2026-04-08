@@ -58,9 +58,12 @@
 
 .itemLink {
   display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   width: fit-content;
   max-width: 100%;
-  padding: 2px 0;
+  padding: 6px 8px;
+  border-radius: 8px;
   font-size: 18px;
   line-height: 1.4;
   color: #0f172a;
@@ -69,8 +72,14 @@
 
 .itemLink:hover,
 .itemLink:focus-visible {
+  background: #eff6ff;
   color: #2563eb;
   text-decoration: underline;
+}
+
+.itemLink:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
 }
 
 @media (max-width: 720px) {

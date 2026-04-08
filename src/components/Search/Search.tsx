@@ -41,12 +41,15 @@ export function GlobalSearch() {
   };
 
   return (
-    <input
-      aria-label={placeholder}
-      className={styles.input}
-      placeholder={placeholder}
-      value={inputValue}
-      onChange={(e) => handleChange(e.target.value)}
-    />
+    <label className={styles.wrapper}>
+      <span className={styles.label}>Search</span>
+      <input
+        aria-label={placeholder}
+        className={styles.input}
+        placeholder={placeholder}
+        value={inputValue}
+        onChange={(e) => handleChange(e.target.value)}
+      />
+    </label>
   );
 }
