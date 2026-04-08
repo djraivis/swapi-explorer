@@ -1,42 +1,89 @@
-import type { SwapiCategory } from "./types";
+import type { SortOrder, SwapiCategory, SwapiListItem } from "@/lib/types";
+import { slugify } from "@/utils/wizard";
 
-// SWAPI uses this root URL for all category requests.
-const SWAPI_BASE_URL = "https://swapi.dev/api";
-
-type SwapiListResponse = {
+type SwapiListResponse<T> = {
   count: number;
   next: string | null;
-  previous: string | null;
-  results: unknown[];
+  results: T[];
 };
 
-// Builds the first list URL for a selected SWAPI category.
-function getCategoryUrl(category: SwapiCategory) {
-  return `${SWAPI_BASE_URL}/${category}/`;
+type FetchCategoryItemsOptions = {
+  search?: string;
+};
+
+export async function fetchCategoryItems<T extends SwapiListItem>(
+  category: SwapiCategory,
+  options: FetchCategoryItemsOptions = {}
+) {
+  const items: T[] = [];
+  const search = typeof options.search === "string" ? options.search.trim() : "";
+  const initialUrl = search
+    ? `https://swapi.dev/api/${category}/?search=${encodeURIComponent(search)}`
+    : `https://swapi.dev/api/${category}/`;
+  let nextUrl: string | null = initialUrl;
+
+  while (nextUrl) {
+    const response = await fetch(nextUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${category}`);
+    }
+
+    const data = (await response.json()) as SwapiListResponse<T>;
+    items.push(...data.results);
+    nextUrl = data.next;
+  }
+
+  return items;
 }
 
-// Fetches one SWAPI list page and throws a clear error if the request fails.
-async function fetchPage(url: string): Promise<SwapiListResponse> {
-  const response = await fetch(url);
+export async function fetchCategoryTotal(category: SwapiCategory) {
+  const response = await fetch(`https://swapi.dev/api/${category}/`);
 
   if (!response.ok) {
-    throw new Error("Unable to fetch data from SWAPI.");
+    throw new Error(`Failed to fetch ${category} total`);
   }
 
-  return response.json();
+  const data = (await response.json()) as SwapiListResponse<SwapiListItem>;
+  return data.count;
 }
 
-// Fetches every page for a category so the app can show the full dataset.
-export async function fetchAllCategoryItems(category: SwapiCategory) {
-  const allResults: unknown[] = [];
-  let nextPageUrl: string | null = getCategoryUrl(category);
+export async function findCategoryItemBySlug<T extends SwapiListItem>(
+  category: SwapiCategory,
+  itemSlug: string
+) {
+  const items = await fetchCategoryItems<T>(category);
 
-  while (nextPageUrl) {
-    const page = await fetchPage(nextPageUrl);
+  return items.find((item) => slugify(item.name ?? item.title ?? "") === itemSlug);
+}
 
-    allResults.push(...page.results);
-    nextPageUrl = page.next;
+export function sortCategoryItems<T extends SwapiListItem>(
+  items: T[],
+  category: SwapiCategory,
+  sort: SortOrder | undefined
+) {
+  if (!sort) {
+    return items;
   }
 
-  return allResults;
+  const sortedItems = [...items];
+  const getValue = (item: T) => {
+    if (category === "films") {
+      return item.title ?? "";
+    }
+
+    return item.name ?? "";
+  };
+
+  sortedItems.sort((firstItem, secondItem) => {
+    const firstValue = getValue(firstItem);
+    const secondValue = getValue(secondItem);
+    const comparison = firstValue.localeCompare(secondValue, undefined, {
+      sensitivity: "base",
+    });
+
+    return sort === "asc" ? comparison : comparison * -1;
+  });
+
+  return sortedItems;
 }

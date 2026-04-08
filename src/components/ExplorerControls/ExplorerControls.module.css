@@ -1,0 +1,13 @@
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  justify-content: flex-start;
+}
+
+@media (max-width: 720px) {
+  .controls {
+    justify-content: flex-start;
+  }
+}

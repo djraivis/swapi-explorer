@@ -1,0 +1,27 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.input {
+  min-height: 40px;
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.input:focus {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
+  border-color: #2563eb;
+}

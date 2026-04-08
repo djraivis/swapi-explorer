@@ -1,0 +1,21 @@
+.footer {
+  width: 100%;
+  max-width: 1080px;
+  margin: 32px auto 0;
+  text-align: center;
+}
+
+.copy {
+  font-size: 14px;
+}
+
+.link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #171d2d;
+}
+
+.link:hover {
+  color: #3b82f6;
+  transition: 0.2s;
+}
