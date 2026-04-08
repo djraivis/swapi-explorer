@@ -1,4 +1,4 @@
-// Converts display text into a URL-safe slug.
+// Converts display text into a URL-safe slug for the live app and the example routes.
 export function slugify(text: string) {
   return text
     .toLowerCase()
@@ -8,12 +8,7 @@ export function slugify(text: string) {
     .replace(/-+/g, "-")
 }
 
-// Returns the final path segment from a URL.
-export function getLastUrlPart(url: string) {
-  return url.replace(/\/+$/, "").split("/").pop()
-}
-
-// Converts a slug back into readable title-cased text.
+// Converts a slug back into readable title-cased text for the dynamic-routes example only.
 export function unslugify(slug: string) {
   return slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
 }

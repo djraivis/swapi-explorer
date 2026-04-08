@@ -1,14 +1,5 @@
+import { SWAPI_CATEGORIES } from "./types";
 import type { SwapiCategory } from "./types";
-
-// Lists every SWAPI category supported by the app.
-export const SWAPI_CATEGORIES: SwapiCategory[] = [
-  "people",
-  "planets",
-  "films",
-  "species",
-  "starships",
-  "vehicles",
-];
 
 // Maps each category key to the label shown in the UI.
 export const CATEGORY_LABELS: Record<SwapiCategory, string> = {
@@ -19,3 +10,5 @@ export const CATEGORY_LABELS: Record<SwapiCategory, string> = {
   starships: "Starships",
   vehicles: "Vehicles",
 };
+
+export { SWAPI_CATEGORIES };

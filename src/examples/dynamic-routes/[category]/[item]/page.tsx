@@ -14,8 +14,8 @@ export default async function Page({
   const data = await response.json();
   const itemData = data.results[0]
 
-  console.log("This is category", category);
-  console.log("This is item", data);
+  // console.log("This is category", category);
+  // console.log("This is item", data);
   
   return (
     <div>

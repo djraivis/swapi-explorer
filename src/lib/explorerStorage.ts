@@ -1,3 +1,4 @@
+import { isSwapiCategory } from "@/lib/types";
 import type { SortOrder, SwapiCategory } from "@/lib/types";
 
 export const RECENT_CATEGORY_KEY = "swapi-recent-category";
@@ -17,14 +18,7 @@ function isBrowser() {
 export function getCategoryFromPathname(pathname: string) {
   const [firstSegment] = pathname.split("/").filter(Boolean);
 
-  if (
-    firstSegment === "people" ||
-    firstSegment === "planets" ||
-    firstSegment === "films" ||
-    firstSegment === "species" ||
-    firstSegment === "starships" ||
-    firstSegment === "vehicles"
-  ) {
+  if (firstSegment && isSwapiCategory(firstSegment)) {
     return firstSegment;
   }
 
@@ -72,14 +66,7 @@ export function getRecentCategory() {
 
   const category = window.localStorage.getItem(RECENT_CATEGORY_KEY);
 
-  if (
-    category === "people" ||
-    category === "planets" ||
-    category === "films" ||
-    category === "species" ||
-    category === "starships" ||
-    category === "vehicles"
-  ) {
+  if (category && isSwapiCategory(category)) {
     return category;
   }
 

@@ -1,5 +1,20 @@
-// Lists the SWAPI categories supported by the app.
-export type SwapiCategory = "people" | "planets" | "films" | "species" | "starships" | "vehicles"
+// Lists every SWAPI category supported by the app.
+export const SWAPI_CATEGORIES = [
+  "people",
+  "planets",
+  "films",
+  "species",
+  "starships",
+  "vehicles",
+] as const
+
+// Derives the SWAPI category union type from the shared category list.
+export type SwapiCategory = (typeof SWAPI_CATEGORIES)[number]
+
+// Checks whether a string matches one of the supported SWAPI categories.
+export function isSwapiCategory(value: string): value is SwapiCategory {
+  return SWAPI_CATEGORIES.includes(value as SwapiCategory)
+}
 
 export type SwapiListItem = {
   url: string
