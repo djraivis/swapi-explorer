@@ -3,6 +3,7 @@ import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { fetchCategoryItems, fetchCategoryTotal, sortCategoryItems } from "@/lib/swapi";
 import type { SortOrder, SwapiListItem } from "@/lib/types";
 
+// Renders the vehicles category list page.
 export default async function VehiclesItemPage({
   searchParams,
 }: {

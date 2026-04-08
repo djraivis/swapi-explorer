@@ -5,6 +5,7 @@ type ErrorStateProps = {
   message: string;
 };
 
+// Renders a user-facing error message for failed states.
 export function ErrorState({ title, message }: ErrorStateProps) {
   return (
     <div className={styles.state} role="alert">

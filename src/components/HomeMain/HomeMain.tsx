@@ -5,6 +5,7 @@ import { CATEGORY_LABELS, SWAPI_CATEGORIES } from "@/lib/constants";
 import { RecentCategory } from "../RecentCategory/RecentCategory";
 import styles from "./HomeMain.module.css";
 
+// Renders the landing page hero, recent link, and category cards.
 export function HomeMain() {
   return (
     <main className={styles.main}>

@@ -8,6 +8,7 @@ import { getCategoryFromPathname } from "@/lib/explorerStorage";
 
 import styles from "./Search.module.css";
 
+// Keeps the current category search input in sync with the URL.
 export function GlobalSearch() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,6 +24,7 @@ export function GlobalSearch() {
     setInputValue(currentValue);
   }, [currentValue]);
 
+  // Updates the current search query in the URL.
   const handleChange = (value: string) => {
     setInputValue(value);
 

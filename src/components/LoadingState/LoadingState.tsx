@@ -4,6 +4,7 @@ type LoadingStateProps = {
   label?: string;
 };
 
+// Renders an accessible loading indicator and status label.
 export function LoadingState({ label = "Loading..." }: LoadingStateProps) {
   return (
     <div

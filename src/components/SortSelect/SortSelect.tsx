@@ -4,10 +4,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import styles from "./SortSelect.module.css";
 
+// Chooses the correct sort label for the current category route.
 function getSortLabel(pathname: string) {
   return pathname.startsWith("/films") ? "Title" : "Name";
 }
 
+// Keeps the current category sort selection in sync with the URL.
 export function SortSelect() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -15,6 +17,7 @@ export function SortSelect() {
   const sortLabel = getSortLabel(pathname);
   const currentValue = searchParams.get("sort") ?? "";
 
+  // Updates the current sort value in the URL.
   const handleChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 

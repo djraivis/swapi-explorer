@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/AppHeader/AppHeader";
 
 import styles from "./layout.module.css";
 
+// Wraps explorer routes with the shared header and content layout.
 export default function Layout({
   children,
 }: {

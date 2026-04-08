@@ -6,14 +6,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getCategoryFromPathname, getStoredCategoryState, setRecentCategory, setStoredCategoryState } from "@/lib/explorerStorage";
 import type { SortOrder } from "@/lib/types";
 
+// Normalizes the search query string before it is stored.
 function getSearchValue(searchValue: string | null) {
   return searchValue ? searchValue : undefined;
 }
 
+// Normalizes the sort query string before it is stored.
 function getSortValue(sortValue: string | null) {
   return sortValue === "asc" || sortValue === "desc" ? (sortValue as SortOrder) : undefined;
 }
 
+// Syncs recent-category and per-category explorer state with localStorage.
 export function ExplorerStateSync() {
   const pathname = usePathname();
   const router = useRouter();

@@ -7,6 +7,7 @@ type TransportDetailsProps = {
   item: TransportItem;
 };
 
+// Renders the required transport detail fields for a vehicle or starship.
 export function TransportDetails({ item }: TransportDetailsProps) {
   return (
     <div className={styles.grid}>

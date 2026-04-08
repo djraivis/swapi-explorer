@@ -16,6 +16,7 @@ type CategoryListProps = {
   emptyMessage?: string;
 };
 
+// Renders the filtered list view for a SWAPI category.
 export function CategoryList({
   category,
   items,

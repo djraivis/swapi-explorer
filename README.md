@@ -11,15 +11,26 @@ A Next.js and TypeScript app for browsing Star Wars data from SWAPI across all s
 
 The application uses the App Router, CSS Modules, category routes, and slug-based item detail pages.
 
-## Live Features
+## Feature Summary
 
 - browse all six SWAPI categories
 - search within the current category
 - sort by `name` or `title`, depending on the category
 - fetch the full paginated dataset for each category
-- show loading, error, empty, and not-found states
+- show result counts for the current filtered view against the full category total
 - preserve recent category and per-category search/sort state
+- show dedicated detail pages for every category
 - show required transportation details for `vehicles` and `starships`
+- show loading, error, empty, item-not-found, and not-found states
+
+## Detail Page Coverage
+
+- `people`: name, birth year, gender
+- `planets`: name, climate, population
+- `films`: title, episode, release date
+- `species`: name, classification, language
+- `vehicles`: name, model, manufacturer, cost in credits, length, crew, passengers, cargo capacity
+- `starships`: name, model, manufacturer, cost in credits, length, crew, passengers, cargo capacity
 
 ## Acceptance Criteria Mapping
 
@@ -91,7 +102,7 @@ For the transportation categories, I added the required detail fields from the t
 
 ## Accessibility
 
-I tried to keep the app aligned with basic WCAG 2.2 Level A and AA expectations. I added visible labels for form controls, visible keyboard focus states, larger interactive target areas, and clear loading, error, empty, and not-found states. I also kept the structure fairly simple so the pages are easier to navigate and understand.
+I tried to keep the app aligned with basic WCAG 2.2 Level A and AA expectations. I added visible labels for form controls, visible keyboard focus states and larger interactive target areas.
 
 ## Error, Empty, Loading, and Not-Found States
 
@@ -128,6 +139,7 @@ src/
 │   ├── CategoryList/
 │   ├── DetailBackLink/
 │   ├── DetailField/
+│   ├── DetailSummary/
 │   ├── EmptyState/
 │   ├── ErrorState/
 │   ├── ExplorerControls/

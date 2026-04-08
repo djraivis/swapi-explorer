@@ -7,6 +7,7 @@ import type { PlanetItem } from "@/lib/types";
 
 import styles from "./page.module.css";
 
+// Renders the planets detail page for the requested slug.
 export default async function ItemPage({
   params,
 }: {

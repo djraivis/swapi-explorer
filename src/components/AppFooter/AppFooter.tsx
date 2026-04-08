@@ -1,5 +1,6 @@
 import styles from "./AppFooter.module.css";
 
+// Renders the footer with a link to the public repository.
 export function AppFooter() {
   return (
     <footer className={styles.footer}>

@@ -9,6 +9,7 @@ type DetailBackLinkProps = {
   category: SwapiCategory;
 };
 
+// Renders a link back to the current category list page.
 export function DetailBackLink({ category }: DetailBackLinkProps) {
   return (
     <div className={styles.wrapper}>

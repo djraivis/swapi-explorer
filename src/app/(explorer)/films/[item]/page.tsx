@@ -7,6 +7,7 @@ import type { FilmItem } from "@/lib/types";
 
 import styles from "./page.module.css";
 
+// Renders the films detail page for the requested slug.
 export default async function FilmsPage({
   params,
 }: {

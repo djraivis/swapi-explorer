@@ -8,10 +8,12 @@ type StoredCategoryState = Partial<Record<SwapiCategory, {
   sort?: SortOrder;
 }>>;
 
+// Checks whether the current code is running in the browser.
 function isBrowser() {
   return typeof window !== "undefined";
 }
 
+// Extracts a supported SWAPI category from the current pathname.
 export function getCategoryFromPathname(pathname: string) {
   const [firstSegment] = pathname.split("/").filter(Boolean);
 
@@ -29,6 +31,7 @@ export function getCategoryFromPathname(pathname: string) {
   return null;
 }
 
+// Reads the saved per-category explorer state from localStorage.
 export function getStoredCategoryState() {
   if (!isBrowser()) {
     return {} as StoredCategoryState;
@@ -47,6 +50,7 @@ export function getStoredCategoryState() {
   }
 }
 
+// Saves the current search and sort state for a category.
 export function setStoredCategoryState(
   category: SwapiCategory,
   nextState: { search?: string; sort?: SortOrder }
@@ -60,6 +64,7 @@ export function setStoredCategoryState(
   window.localStorage.setItem(CATEGORY_STATE_KEY, JSON.stringify(currentState));
 }
 
+// Reads the most recently viewed category from localStorage.
 export function getRecentCategory() {
   if (!isBrowser()) {
     return null;
@@ -81,6 +86,7 @@ export function getRecentCategory() {
   return null;
 }
 
+// Stores the most recently viewed category in localStorage.
 export function setRecentCategory(category: SwapiCategory) {
   if (!isBrowser()) {
     return;

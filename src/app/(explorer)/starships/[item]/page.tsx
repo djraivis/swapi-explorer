@@ -7,6 +7,7 @@ import { findCategoryItemBySlug } from "@/lib/swapi";
 
 import styles from "./page.module.css";
 
+// Renders the starships detail page for the requested slug.
 export default async function ItemPage({
   params,
 }: {

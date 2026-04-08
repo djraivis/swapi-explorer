@@ -11,6 +11,7 @@ type FetchCategoryItemsOptions = {
   search?: string;
 };
 
+// Fetches all paginated items for a SWAPI category, with optional search.
 export async function fetchCategoryItems<T extends SwapiListItem>(
   category: SwapiCategory,
   options: FetchCategoryItemsOptions = {}
@@ -37,6 +38,7 @@ export async function fetchCategoryItems<T extends SwapiListItem>(
   return items;
 }
 
+// Fetches the total item count for a SWAPI category.
 export async function fetchCategoryTotal(category: SwapiCategory) {
   const response = await fetch(`https://swapi.dev/api/${category}/`);
 
@@ -48,6 +50,7 @@ export async function fetchCategoryTotal(category: SwapiCategory) {
   return data.count;
 }
 
+// Finds a category item by matching the requested slug against its label.
 export async function findCategoryItemBySlug<T extends SwapiListItem>(
   category: SwapiCategory,
   itemSlug: string
@@ -57,6 +60,7 @@ export async function findCategoryItemBySlug<T extends SwapiListItem>(
   return items.find((item) => slugify(item.name ?? item.title ?? "") === itemSlug);
 }
 
+// Sorts category items by name or title using the selected sort order.
 export function sortCategoryItems<T extends SwapiListItem>(
   items: T[],
   category: SwapiCategory,
@@ -67,6 +71,7 @@ export function sortCategoryItems<T extends SwapiListItem>(
   }
 
   const sortedItems = [...items];
+  // Returns the correct sortable field for the current category.
   const getValue = (item: T) => {
     if (category === "films") {
       return item.title ?? "";

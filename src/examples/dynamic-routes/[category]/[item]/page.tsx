@@ -1,5 +1,6 @@
 import { unslugify } from "@/utils/wizard";
 
+// Renders the example dynamic item route for a category and slug.
 export default async function Page({
   params,
 }: {

@@ -11,6 +11,7 @@ type DetailSummaryProps = {
   fields: SummaryField[];
 };
 
+// Renders a grid of summary fields for a detail page.
 export function DetailSummary({ fields }: DetailSummaryProps) {
   return (
     <div className={styles.grid}>

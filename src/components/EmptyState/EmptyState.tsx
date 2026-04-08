@@ -5,6 +5,7 @@ type EmptyStateProps = {
   message: string;
 };
 
+// Renders a friendly message when no matching content is available.
 export function EmptyState({ title, message }: EmptyStateProps) {
   return (
     <div className={styles.state} role="status" aria-live="polite" aria-atomic="true">

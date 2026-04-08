@@ -6,6 +6,7 @@ import { findCategoryItemBySlug } from "@/lib/swapi";
 import type { SpeciesItem } from "@/lib/types";
 import styles from "./page.module.css";
 
+// Renders the species detail page for the requested slug.
 export default async function ItemPage({
   params,
 }: {

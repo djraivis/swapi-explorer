@@ -2,6 +2,7 @@ import { SwapiListItem } from "@/lib/types";
 import { slugify } from "@/utils/wizard";
 import Link from "next/link";
 
+// Renders the example dynamic category route for a supported resource.
 export default async function Page({
   params,
   searchParams,

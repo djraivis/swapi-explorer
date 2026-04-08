@@ -9,6 +9,7 @@ type VantaEffect = { destroy: () => void };
 // Represents the function exported by the Vanta Globe bundle.
 type VantaEffectFactory = (options: Record<string, unknown>) => VantaEffect;
 
+// Renders and manages the decorative Vanta globe background effect.
 export function VantaGlobeBackground() {
   // Marks the DOM element where the Vanta canvas should be inserted.
   const backgroundRef = useRef<HTMLDivElement | null>(null);
@@ -19,6 +20,7 @@ export function VantaGlobeBackground() {
     let isActive = true;
     const browserWindow = window as Window & { THREE?: unknown };
 
+    // Loads and initializes the Vanta globe effect in the host element.
     async function loadBackgroundEffect() {
       if (!backgroundRef.current) {
         return;

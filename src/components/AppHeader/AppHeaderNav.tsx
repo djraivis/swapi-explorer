@@ -8,6 +8,7 @@ import { getCategoryFromPathname } from "@/lib/explorerStorage";
 
 import styles from "./AppHeader.module.css";
 
+// Renders the top-level navigation for all SWAPI categories.
 export function AppHeaderNav() {
   const pathname = usePathname();
   const activeCategory = getCategoryFromPathname(pathname);

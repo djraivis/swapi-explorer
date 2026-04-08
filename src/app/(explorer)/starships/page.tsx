@@ -3,6 +3,7 @@ import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { fetchCategoryItems, fetchCategoryTotal, sortCategoryItems } from "@/lib/swapi";
 import type { SortOrder, SwapiListItem } from "@/lib/types";
 
+// Renders the starships category list page.
 export default async function StarshipsItemPage({
   searchParams,
 }: {

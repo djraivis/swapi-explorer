@@ -7,6 +7,7 @@ import type { PersonItem } from "@/lib/types";
 
 import styles from "./page.module.css";
 
+// Renders the people detail page for the requested slug.
 export default async function ItemPage({
   params,
 }: {

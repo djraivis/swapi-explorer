@@ -4,6 +4,7 @@ import { CATEGORY_LABELS, SWAPI_CATEGORIES } from "@/lib/constants";
 
 import styles from "./NotFoundState.module.css";
 
+// Renders the global 404 state with links back into the explorer.
 export function NotFoundState() {
   return (
     <main className={styles.main}>
