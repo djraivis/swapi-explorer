@@ -38,7 +38,7 @@ The application uses the App Router, CSS Modules, category routes, and slug-base
 
 ## Route-Based Approach
 
-I decided to build this version as a route-based explorer using the Next.js App Router. Each category has its own route, such as `/people` or `/planets`, and each item has its own slug-based detail page, such as `/people/luke-skywalker`. I chose this approach mainly as a way to learn more about Next.js routing, layouts, and page structure in a practical way.
+I chose a route-based approach because the task required Next.js, where routing is a core strength. Each category has its own URL, and each item also has a dedicated detail route. This makes the app easier to navigate, revisit, and share, while also giving me a practical way to work with App Router concepts such as file-based routing, nested pages, layouts, and URL-driven state.
 
 ## Full Category Data
 
@@ -79,7 +79,7 @@ I added a reusable sort control that stores the selected sort option in the URL 
 
 ## Recent Category and Per-Category State
 
-I added `localStorage` persistence so the app remembers the most recently viewed category, and also keeps search and sort state separately for each category. When the user comes back to a category page, that saved state is restored into the URL so the page shows the same filtered and sorted view as before.
+I added `localStorage` persistence so the app remembers the most recently viewed category, and also keeps search and sort state separately for each category. When the user comes back to a category page, that saved state is restored into the URL so the page shows the same filtered and sorted state as before.
 
 ## Slug-Based Detail Routes
 
@@ -87,7 +87,7 @@ For item detail routes, I used a slug-based URL approach so pages can have reada
 
 ## Transportation Detail Fields
 
-For the transportation categories, I added the required detail fields from the task brief on the `vehicles` and `starships` item pages. These pages show name, model, manufacturer, cost in credits, length, crew, passengers, and cargo capacity. I also extracted some of that repeated UI into reusable components to keep the code easier to read.
+For the transportation categories, I added the required detail fields from the task brief on the `vehicles` and `starships` item pages. These pages show name, model, manufacturer, cost in credits, length, crew, passengers, and cargo capacity. I also extracted some of that repeated UI into reusable components to keep the code easier to read and maintain.
 
 ## Accessibility
 
@@ -95,7 +95,10 @@ I tried to keep the app aligned with basic WCAG 2.2 Level A and AA expectations.
 
 ## Error, Empty, Loading, and Not-Found States
 
-I added separate UI states for loading, error, empty results, and unknown routes so the app always gives clear feedback instead of failing silently. This helped make the app easier to use and also easier to reason about while building.
+I added separate UI states for loading, error, empty results, and unknown routes so the app always gives clear feedback instead of failing silently. This helped make the app easier to use and easier to reason about while building.
+This video demonstrates how the error message is displayed on screen when an API endpoint fails:
+
+- [Error handling demo](https://cleanshot.com/share/h1LthRgv)
 
 ## Project Structure
 
@@ -153,6 +156,18 @@ A separate dynamic-routing example is included under `src/examples/dynamic-route
 
 It is not part of the live application route tree and does not affect the running app. I kept it as a learning/reference example to compare a dynamic route approach with the manually defined category routes used in the current implementation.
 
+## Future Improvements
+
+One of the next things I would like to improve is using more of the linked relationships provided by SWAPI. Many resources already reference each other through URLs, for example people are linked to films, homeworlds, vehicles, and starships. Building on those relationships would make the app feel more connected and would allow the detail pages to become richer and more useful.
+
+## Prototype Exploration
+
+To explore this further, I also prompted a small prototype using plain HTML, CSS, and JavaScript. I used it to experiment with alternative ways of presenting and navigating related resources.
+
+It is not part of the main solution, but it helped shape possible interaction ideas.
+
+- [Related resources prototype](https://swapi-related-resources-prototype.netlify.app)
+
 ## Getting Started
 
 Install dependencies:
@@ -192,3 +207,7 @@ Public repository:
 Public deployment:
 
 - [Hosted App on Netlify](https://swapi-explorer-app.netlify.app/)
+
+Project notes / README:
+
+- [Readable online README](https://community.inkdrop.app/6554c0e8425877ffa35ab037b8dd8014/vBpDOIwu)
