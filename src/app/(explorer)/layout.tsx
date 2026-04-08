@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { AppFooter } from "@/components/AppFooter/AppFooter";
 import { AppHeader } from "@/components/AppHeader/AppHeader";
 
 import styles from "./layout.module.css";
@@ -14,7 +13,6 @@ export default function Layout({
     <div className={styles.page}>
       <AppHeader />
       <main className={styles.content}>{children}</main>
-      <AppFooter />
     </div>
   );
 }

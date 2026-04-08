@@ -7,7 +7,7 @@ import styles from "./not-found.module.css";
 export default function NotFound() {
   return (
     <div className={styles.page}>
-      <AppHeader showSearch={false} />
+      <AppHeader />
       <NotFoundState />
       <AppFooter />
     </div>

@@ -1,7 +1,6 @@
 import { CategoryList } from "@/components/CategoryList/CategoryList";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
-import { fetchCategoryItems, sortCategoryItems } from "@/lib/swapi";
+import { fetchCategoryItems, fetchCategoryTotal, sortCategoryItems } from "@/lib/swapi";
 import type { SortOrder, SwapiListItem } from "@/lib/types";
 
 export default async function PeopleItemPage({
@@ -14,9 +13,13 @@ export default async function PeopleItemPage({
   const search = typeof searchParam === "string" ? searchParam : undefined;
   const sort = sortParam === "asc" || sortParam === "desc" ? (sortParam as SortOrder) : undefined;
   let categoryData: SwapiListItem[];
+  let totalCount: number;
 
   try {
-    categoryData = await fetchCategoryItems<SwapiListItem>("people", { search });
+    [categoryData, totalCount] = await Promise.all([
+      fetchCategoryItems<SwapiListItem>("people", { search }),
+      fetchCategoryTotal("people"),
+    ]);
   } catch {
     return (
       <ErrorState
@@ -28,19 +31,13 @@ export default async function PeopleItemPage({
 
   categoryData = sortCategoryItems(categoryData, "people", sort);
 
-  if (categoryData.length === 0) {
-    return (
-      <EmptyState
-        title="No people found"
-        message="No results matched the current search."
-      />
-    );
-  }
-
   return (
     <CategoryList
       category="people"
       items={categoryData}
+      totalCount={totalCount}
+      emptyTitle="No people found"
+      emptyMessage="No results matched the current search."
     />
   );
 }

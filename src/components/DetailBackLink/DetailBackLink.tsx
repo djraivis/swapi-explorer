@@ -15,9 +15,6 @@ export function DetailBackLink({ category }: DetailBackLinkProps) {
       <Link className={styles.link} href={`/${category}`}>
         Back to {CATEGORY_LABELS[category]}
       </Link>
-      <span className={styles.breadcrumb}>
-        {CATEGORY_LABELS[category]} / Details
-      </span>
     </div>
   );
 }

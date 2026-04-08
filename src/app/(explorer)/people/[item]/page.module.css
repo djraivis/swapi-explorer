@@ -28,16 +28,7 @@
 }
 
 .description {
-  margin-bottom: 20px;
+  margin-bottom: 0;
   font-size: 16px;
   color: #475569;
-}
-
-.meta {
-  display: inline-flex;
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: #eff6ff;
-  color: #1d4ed8;
-  font-weight: 700;
 }

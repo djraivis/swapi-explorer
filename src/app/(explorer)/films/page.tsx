@@ -1,7 +1,6 @@
 import { CategoryList } from "@/components/CategoryList/CategoryList";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
-import { fetchCategoryItems, sortCategoryItems } from "@/lib/swapi";
+import { fetchCategoryItems, fetchCategoryTotal, sortCategoryItems } from "@/lib/swapi";
 import type { SortOrder, SwapiListItem } from "@/lib/types";
 
 export default async function FilmsItemPage({
@@ -14,9 +13,13 @@ export default async function FilmsItemPage({
   const search = typeof searchParam === "string" ? searchParam : undefined;
   const sort = sortParam === "asc" || sortParam === "desc" ? (sortParam as SortOrder) : undefined;
   let categoryData: SwapiListItem[];
+  let totalCount: number;
 
   try {
-    categoryData = await fetchCategoryItems<SwapiListItem>("films", { search });
+    [categoryData, totalCount] = await Promise.all([
+      fetchCategoryItems<SwapiListItem>("films", { search }),
+      fetchCategoryTotal("films"),
+    ]);
   } catch {
     return (
       <ErrorState
@@ -28,19 +31,13 @@ export default async function FilmsItemPage({
 
   categoryData = sortCategoryItems(categoryData, "films", sort);
 
-  if (categoryData.length === 0) {
-    return (
-      <EmptyState
-        title="No films found"
-        message="No results matched the current search."
-      />
-    );
-  }
-
   return (
     <CategoryList
       category="films"
       items={categoryData}
+      totalCount={totalCount}
+      emptyTitle="No films found"
+      emptyMessage="No results matched the current search."
     />
   );
 }

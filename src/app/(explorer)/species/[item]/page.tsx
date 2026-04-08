@@ -1,7 +1,9 @@
 import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
+import { DetailSummary } from "@/components/DetailSummary/DetailSummary";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { findCategoryItemBySlug } from "@/lib/swapi";
+import type { SpeciesItem } from "@/lib/types";
 import styles from "./page.module.css";
 
 export default async function ItemPage({
@@ -14,7 +16,7 @@ export default async function ItemPage({
   let itemData;
 
   try {
-    itemData = await findCategoryItemBySlug("species", item);
+    itemData = await findCategoryItemBySlug<SpeciesItem>("species", item);
   } catch {
     return (
       <ErrorState
@@ -39,10 +41,13 @@ export default async function ItemPage({
         <DetailBackLink category="species" />
         <p className={styles.eyebrow}>Species Profile</p>
         <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
-        <p className={styles.description}>
-          This is a species from the Star Wars API.
-        </p>
-        <p className={styles.meta}>Species</p>
+        <DetailSummary
+          fields={[
+            { label: "Name", value: itemData.name },
+            { label: "Classification", value: itemData.classification },
+            { label: "Language", value: itemData.language },
+          ]}
+        />
       </section>
     </main>
   )

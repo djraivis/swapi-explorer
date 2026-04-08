@@ -1,7 +1,9 @@
 import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
+import { DetailSummary } from "@/components/DetailSummary/DetailSummary";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { findCategoryItemBySlug } from "@/lib/swapi";
+import type { PlanetItem } from "@/lib/types";
 
 import styles from "./page.module.css";
 
@@ -15,7 +17,7 @@ export default async function ItemPage({
   let itemData;
 
   try {
-    itemData = await findCategoryItemBySlug("planets", item);
+    itemData = await findCategoryItemBySlug<PlanetItem>("planets", item);
   } catch {
     return (
       <ErrorState
@@ -40,10 +42,13 @@ export default async function ItemPage({
         <DetailBackLink category="planets" />
         <p className={styles.eyebrow}>Planet Profile</p>
         <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
-        <p className={styles.description}>
-          This is a planet from the Star Wars API.
-        </p>
-        <p className={styles.meta}>Planets</p>
+        <DetailSummary
+          fields={[
+            { label: "Name", value: itemData.name },
+            { label: "Climate", value: itemData.climate },
+            { label: "Population", value: itemData.population },
+          ]}
+        />
       </section>
     </main>
   )

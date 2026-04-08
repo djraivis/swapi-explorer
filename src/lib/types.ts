@@ -18,3 +18,23 @@ export type TransportItem = SwapiListItem & {
   passengers?: string
   cargo_capacity?: string
 }
+
+export type PersonItem = SwapiListItem & {
+  birth_year?: string
+  gender?: string
+}
+
+export type PlanetItem = SwapiListItem & {
+  climate?: string
+  population?: string
+}
+
+export type FilmItem = SwapiListItem & {
+  episode_id?: number
+  release_date?: string
+}
+
+export type SpeciesItem = SwapiListItem & {
+  classification?: string
+  language?: string
+}

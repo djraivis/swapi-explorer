@@ -1,3 +1,5 @@
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { ExplorerControls } from "@/components/ExplorerControls/ExplorerControls";
 import Link from "next/link";
 
 import { CATEGORY_LABELS } from "@/lib/constants";
@@ -9,36 +11,60 @@ import styles from "./CategoryList.module.css";
 type CategoryListProps = {
   category: SwapiCategory;
   items: SwapiListItem[];
+  totalCount: number;
+  emptyTitle?: string;
+  emptyMessage?: string;
 };
 
-export function CategoryList({ category, items }: CategoryListProps) {
+export function CategoryList({
+  category,
+  items,
+  totalCount,
+  emptyTitle = "No results found",
+  emptyMessage = "No results matched the current search.",
+}: CategoryListProps) {
   const label = CATEGORY_LABELS[category];
 
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <p className={styles.eyebrow}>Category Explorer</p>
-        <h1 className={styles.title}>{label}</h1>
-        <p className={styles.description}>
-          Browse {items.length} {label.toLowerCase()} from SWAPI.
-        </p>
+        <div className={styles.headerTop}>
+          <div className={styles.headerContent}>
+            <p className={styles.eyebrow}>Category</p>
+            <div className={styles.titleRow}>
+              <h1 className={styles.title}>{label}</h1>
+              <ExplorerControls />
+            </div>
+            <p className={styles.description}>
+              Showing {items.length} out of {totalCount} {label.toLowerCase()}.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className={styles.grid}>
-        {items.map((item) => {
-          const itemLabel = item.name ?? item.title ?? "Unknown";
+      <div className={styles.resultsSection}>
+        {items.length === 0 ? (
+          <EmptyState
+            title={emptyTitle}
+            message={emptyMessage}
+          />
+        ) : (
+          <div className={styles.grid}>
+            {items.map((item) => {
+              const itemLabel = item.name ?? item.title ?? "Unknown";
 
-          return (
-            <Link
-              key={item.url}
-              className={styles.card}
-              href={`/${category}/${slugify(itemLabel)}`}
-            >
-              <span className={styles.cardLabel}>{itemLabel}</span>
-              <span className={styles.cardMeta}>Open details</span>
-            </Link>
-          );
-        })}
+              return (
+                <Link
+                  key={item.url}
+                  className={styles.itemLink}
+                  href={`/${category}/${slugify(itemLabel)}`}
+                >
+                  {itemLabel}
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

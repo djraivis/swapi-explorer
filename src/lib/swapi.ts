@@ -2,6 +2,7 @@ import type { SortOrder, SwapiCategory, SwapiListItem } from "@/lib/types";
 import { slugify } from "@/utils/wizard";
 
 type SwapiListResponse<T> = {
+  count: number;
   next: string | null;
   results: T[];
 };
@@ -34,6 +35,17 @@ export async function fetchCategoryItems<T extends SwapiListItem>(
   }
 
   return items;
+}
+
+export async function fetchCategoryTotal(category: SwapiCategory) {
+  const response = await fetch(`https://swapi.dev/api/${category}/`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${category} total`);
+  }
+
+  const data = (await response.json()) as SwapiListResponse<SwapiListItem>;
+  return data.count;
 }
 
 export async function findCategoryItemBySlug<T extends SwapiListItem>(
