@@ -187,8 +187,8 @@ AI was used during implementation support, code review, debugging, and documenta
 
 Public repository:
 
-- Add GitHub repository URL here
+- [GitHub](https://github.com/djraivis/swapi-explorer)
 
 Public deployment:
 
-- Add deployed URL here if available
+- [Hosted App on Netlify](https://swapi-explorer-app.netlify.app/)
