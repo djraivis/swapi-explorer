@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.link {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.link:hover,
+.link:focus-visible {
+  background: #dbeafe;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}

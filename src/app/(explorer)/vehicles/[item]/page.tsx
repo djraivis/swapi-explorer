@@ -1,3 +1,4 @@
+import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { TransportDetails } from "@/components/TransportDetails/TransportDetails";
@@ -38,6 +39,7 @@ export default async function ItemPage({
  return (
     <main className={styles.page}>
       <section className={styles.panel}>
+        <DetailBackLink category="vehicles" />
         <p className={styles.eyebrow}>Transport Profile</p>
         <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
         <p className={styles.description}>

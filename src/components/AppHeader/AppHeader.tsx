@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { CATEGORY_LABELS, SWAPI_CATEGORIES } from "@/lib/constants";
 
-import { GlobalSearch } from "../Search/Search";
+import { ExplorerControls } from "../ExplorerControls/ExplorerControls";
+import { ExplorerStateSync } from "../ExplorerStateSync/ExplorerStateSync";
 import styles from "./AppHeader.module.css";
 
 type AppHeaderProps = {
@@ -13,6 +14,9 @@ type AppHeaderProps = {
 export function AppHeader({ showSearch = true }: AppHeaderProps) {
   return (
     <header className={styles.header}>
+      <Suspense fallback={null}>
+        <ExplorerStateSync />
+      </Suspense>
       <div className={styles.headerBar}>
         <Link className={styles.brand} href="/">
           SWAPI Explorer
@@ -32,7 +36,7 @@ export function AppHeader({ showSearch = true }: AppHeaderProps) {
 
         {showSearch ? (
           <Suspense fallback={null}>
-            <GlobalSearch />
+            <ExplorerControls />
           </Suspense>
         ) : null}
       </div>

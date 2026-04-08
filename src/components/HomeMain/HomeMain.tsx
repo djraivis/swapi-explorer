@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { CATEGORY_LABELS, SWAPI_CATEGORIES } from "@/lib/constants";
 
+import { RecentCategory } from "../RecentCategory/RecentCategory";
 import styles from "./HomeMain.module.css";
 
 export function HomeMain() {
@@ -14,6 +15,7 @@ export function HomeMain() {
           Browse the six SWAPI categories through simple Next.js routes and
           slug-based item pages.
         </p>
+        <RecentCategory />
       </section>
 
       <section className={styles.grid}>

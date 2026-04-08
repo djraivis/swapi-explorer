@@ -1,3 +1,4 @@
+import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
 import { findCategoryItemBySlug } from "@/lib/swapi";
@@ -36,6 +37,7 @@ export default async function FilmsPage({
   return (
     <main className={styles.page}>
       <section className={styles.panel}>
+        <DetailBackLink category="films" />
         <p className={styles.eyebrow}>Film Profile</p>
         <h1 className={styles.title}>{itemData.name ? itemData.name : itemData.title}</h1>
         <p className={styles.description}>

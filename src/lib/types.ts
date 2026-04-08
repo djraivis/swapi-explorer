@@ -7,6 +7,8 @@ export type SwapiListItem = {
   title?: string
 }
 
+export type SortOrder = "asc" | "desc"
+
 export type TransportItem = SwapiListItem & {
   model?: string
   manufacturer?: string

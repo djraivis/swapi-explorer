@@ -1,18 +1,23 @@
+import { CategoryList } from "@/components/CategoryList/CategoryList";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
-import type { SwapiListItem } from "@/lib/types";
-import { slugify } from "@/utils/wizard";
-import Link from "next/link";
+import { fetchCategoryItems, sortCategoryItems } from "@/lib/swapi";
+import type { SortOrder, SwapiListItem } from "@/lib/types";
 
 export default async function FilmsItemPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const search = (await searchParams).search
-  const response = await fetch(`https://swapi.dev/api/films${search ? `?search=${search}` : ""}`);
+  const searchParam = (await searchParams).search;
+  const sortParam = (await searchParams).sort;
+  const search = typeof searchParam === "string" ? searchParam : undefined;
+  const sort = sortParam === "asc" || sortParam === "desc" ? (sortParam as SortOrder) : undefined;
+  let categoryData: SwapiListItem[];
 
-  if (!response.ok) {
+  try {
+    categoryData = await fetchCategoryItems<SwapiListItem>("films", { search });
+  } catch {
     return (
       <ErrorState
         title="Unable to load films"
@@ -21,8 +26,7 @@ export default async function FilmsItemPage({
     );
   }
 
-  const data = await response.json();
-  const categoryData = data.results
+  categoryData = sortCategoryItems(categoryData, "films", sort);
 
   if (categoryData.length === 0) {
     return (
@@ -34,15 +38,9 @@ export default async function FilmsItemPage({
   }
 
   return (
-    <div>
-      <div style={{ color: "blue", fontSize: "60px" }}>Films</div>
-      {categoryData.map((item: SwapiListItem) => (
-        <div key={item.url}>
-          <Link href={`/films/${slugify(item.name ? item.name : item.title || "")}`}>
-            {item.name ? item.name : item.title}
-          </Link>
-        </div>
-      ))}
-    </div>
-  )
+    <CategoryList
+      category="films"
+      items={categoryData}
+    />
+  );
 }

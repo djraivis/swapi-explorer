@@ -44,8 +44,19 @@
   background: #dbeafe;
 }
 
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
+
 @media (max-width: 640px) {
   .headerBar {
     padding: 16px;
+  }
+
+  .controls {
+    width: 100%;
   }
 }

@@ -1,4 +1,4 @@
-import type { SwapiCategory, SwapiListItem } from "@/lib/types";
+import type { SortOrder, SwapiCategory, SwapiListItem } from "@/lib/types";
 import { slugify } from "@/utils/wizard";
 
 type SwapiListResponse<T> = {
@@ -6,9 +6,20 @@ type SwapiListResponse<T> = {
   results: T[];
 };
 
-async function fetchAllCategoryItems<T extends SwapiListItem>(category: SwapiCategory) {
+type FetchCategoryItemsOptions = {
+  search?: string;
+};
+
+export async function fetchCategoryItems<T extends SwapiListItem>(
+  category: SwapiCategory,
+  options: FetchCategoryItemsOptions = {}
+) {
   const items: T[] = [];
-  let nextUrl: string | null = `https://swapi.dev/api/${category}/`;
+  const search = typeof options.search === "string" ? options.search.trim() : "";
+  const initialUrl = search
+    ? `https://swapi.dev/api/${category}/?search=${encodeURIComponent(search)}`
+    : `https://swapi.dev/api/${category}/`;
+  let nextUrl: string | null = initialUrl;
 
   while (nextUrl) {
     const response = await fetch(nextUrl);
@@ -29,7 +40,38 @@ export async function findCategoryItemBySlug<T extends SwapiListItem>(
   category: SwapiCategory,
   itemSlug: string
 ) {
-  const items = await fetchAllCategoryItems<T>(category);
+  const items = await fetchCategoryItems<T>(category);
 
   return items.find((item) => slugify(item.name ?? item.title ?? "") === itemSlug);
+}
+
+export function sortCategoryItems<T extends SwapiListItem>(
+  items: T[],
+  category: SwapiCategory,
+  sort: SortOrder | undefined
+) {
+  if (!sort) {
+    return items;
+  }
+
+  const sortedItems = [...items];
+  const getValue = (item: T) => {
+    if (category === "films") {
+      return item.title ?? "";
+    }
+
+    return item.name ?? "";
+  };
+
+  sortedItems.sort((firstItem, secondItem) => {
+    const firstValue = getValue(firstItem);
+    const secondValue = getValue(secondItem);
+    const comparison = firstValue.localeCompare(secondValue, undefined, {
+      sensitivity: "base",
+    });
+
+    return sort === "asc" ? comparison : comparison * -1;
+  });
+
+  return sortedItems;
 }
