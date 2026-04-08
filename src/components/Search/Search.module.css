@@ -7,21 +7,29 @@
 .label {
   font-size: 12px;
   font-weight: 700;
-  color: #475569;
+  color: var(--text-muted);
 }
 
 .input {
-  min-height: 40px;
+  min-height: 44px;
   min-width: 220px;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #0f172a;
+  padding: 10px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--bg-surface-strong);
+  color: var(--text-strong);
 }
 
-.input:focus {
-  outline: 3px solid #bfdbfe;
-  outline-offset: 2px;
-  border-color: #2563eb;
+.input::placeholder {
+  color: #697a92;
+}
+
+.input:hover {
+  border-color: #9babc0;
+}
+
+.input:focus-visible {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }

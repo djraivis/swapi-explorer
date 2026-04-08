@@ -1,3 +1,22 @@
+:root {
+  --bg-page: #eef2f6;
+  --bg-surface: rgb(255 255 255 / 0.92);
+  --bg-surface-strong: #ffffff;
+  --bg-muted: #f8fafc;
+  --border-soft: #d7dee8;
+  --border-strong: #b8c4d3;
+  --text-strong: #142033;
+  --text-body: #253247;
+  --text-muted: #52627a;
+  --accent: #2458d3;
+  --accent-soft: #e8f0ff;
+  --focus-ring: #8fb3ff;
+  --shadow-soft: 0 12px 32px rgb(15 23 42 / 0.06);
+  --shadow-focus: 0 0 0 3px rgb(143 179 255 / 0.45);
+  --radius-card: 18px;
+  --radius-control: 12px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,10 +29,13 @@ html {
 
 body {
   min-height: 100vh;
-  background: #f5f7fa;
-  color: #111827;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
+  background:
+    radial-gradient(circle at top left, rgb(120 141 174 / 0.1), transparent 22%),
+    linear-gradient(180deg, #f9fbfc 0%, var(--bg-page) 100%);
+  color: var(--text-body);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -25,4 +47,12 @@ button,
 input,
 select {
   font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }

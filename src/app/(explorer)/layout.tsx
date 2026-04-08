@@ -12,8 +12,13 @@ export default function Layout({
 }) {
   return (
     <div className={styles.page}>
+      <a className={styles.skipLink} href="#main-content">
+        Skip to content
+      </a>
       <AppHeader />
-      <main className={styles.content}>{children}</main>
+      <main className={styles.content} id="main-content" tabIndex={-1}>
+        {children}
+      </main>
     </div>
   );
 }

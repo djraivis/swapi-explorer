@@ -1,8 +1,6 @@
 .field {
-  padding: 14px;
-  border: 1px solid #dbeafe;
-  border-radius: 14px;
-  background: #f8fbff;
+  padding: 8px 0 12px;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .label {
@@ -12,10 +10,11 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #2563eb;
+  color: var(--text-muted);
 }
 
 .value {
-  color: #0f172a;
+  margin: 0;
+  color: var(--text-strong);
   font-weight: 600;
 }

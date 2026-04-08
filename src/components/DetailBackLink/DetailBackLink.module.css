@@ -8,20 +8,21 @@
 
 .link {
   display: inline-flex;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #eff6ff;
-  color: #1d4ed8;
+  padding: 4px 0;
+  color: var(--accent);
   font-size: 14px;
   font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
 }
 
 .link:hover,
 .link:focus-visible {
-  background: #dbeafe;
+  color: #183fa8;
 }
 
 .link:focus-visible {
-  outline: 3px solid #bfdbfe;
+  outline-color: var(--focus-ring);
   outline-offset: 2px;
 }

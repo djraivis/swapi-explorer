@@ -9,8 +9,8 @@ type DetailFieldProps = {
 export function DetailField({ label, value }: DetailFieldProps) {
   return (
     <div className={styles.field}>
-      <span className={styles.label}>{label}</span>
-      <span className={styles.value}>{value ?? "Unknown"}</span>
+      <dt className={styles.label}>{label}</dt>
+      <dd className={styles.value}>{value ?? "Unknown"}</dd>
     </div>
   );
 }

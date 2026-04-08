@@ -2,8 +2,8 @@
   min-height: 100vh;
   padding: 56px 20px;
   background:
-    radial-gradient(circle at top left, rgb(96 165 250 / 0.12), transparent 24%),
-    linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    radial-gradient(circle at top left, rgb(120 141 174 / 0.12), transparent 24%),
+    linear-gradient(180deg, #f9fbfc 0%, var(--bg-page) 100%);
 }
 
 @media (max-width: 640px) {

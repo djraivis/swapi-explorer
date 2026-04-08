@@ -7,21 +7,25 @@
 .label {
   font-size: 12px;
   font-weight: 700;
-  color: #475569;
+  color: var(--text-muted);
 }
 
 .select {
-  min-height: 40px;
+  min-height: 44px;
   min-width: 180px;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #0f172a;
+  padding: 10px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--bg-surface-strong);
+  color: var(--text-strong);
 }
 
-.select:focus {
-  outline: 3px solid #bfdbfe;
-  outline-offset: 2px;
-  border-color: #2563eb;
+.select:hover {
+  border-color: #9babc0;
+}
+
+.select:focus-visible {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }

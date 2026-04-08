@@ -14,7 +14,7 @@ type DetailSummaryProps = {
 // Renders a grid of summary fields for a detail page.
 export function DetailSummary({ fields }: DetailSummaryProps) {
   return (
-    <div className={styles.grid}>
+    <dl className={styles.grid}>
       {fields.map((field) => (
         <DetailField
           key={field.label}
@@ -22,6 +22,6 @@ export function DetailSummary({ fields }: DetailSummaryProps) {
           value={field.value === undefined ? undefined : String(field.value)}
         />
       ))}
-    </div>
+    </dl>
   );
 }

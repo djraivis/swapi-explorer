@@ -55,20 +55,23 @@ export function CategoryList({
             message={emptyMessage}
           />
         ) : (
-          <div className={styles.grid}>
-            {items.map((item) => {
-              const itemLabel = item.name ?? item.title ?? "Unknown";
+          <div className={styles.itemsSurface}>
+            <ul className={styles.grid}>
+              {items.map((item) => {
+                const itemLabel = item.name ?? item.title ?? "Unknown";
 
-              return (
-                <Link
-                  key={item.url}
-                  className={styles.itemLink}
-                  href={`/${category}/${slugify(itemLabel)}`}
-                >
-                  {itemLabel}
-                </Link>
-              );
-            })}
+                return (
+                  <li key={item.url} className={styles.gridItem}>
+                    <Link
+                      className={styles.itemLink}
+                      href={`/${category}/${slugify(itemLabel)}`}
+                    >
+                      {itemLabel}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
       </div>
