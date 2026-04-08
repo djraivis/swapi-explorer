@@ -23,18 +23,18 @@ The application uses the App Router, CSS Modules, category routes, and slug-base
 
 ## Acceptance Criteria Mapping
 
-| Requirement                                                     | Status     | Notes                                                                                     |
-| --------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------- |
-| Search via all available categories                             | Done       | Search is available on each category page.                                                |
-| Full list of relevant data for the searched category            | Done       | SWAPI pagination is followed until `next` is `null`.                                      |
-| Sort via name or title                                          | Done       | Films sort by `title`; other categories sort by `name`.                                   |
-| Error message on invalid request / failed request               | Done       | Clear inline error state is shown when fetch fails.                                       |
-| Transportation categories show required minimum fields          | Done       | `vehicles` and `starships` detail pages show the required fields.                         |
-| View most recently searched category                            | Done       | The most recently viewed category is stored and shown on the homepage.                    |
-| Retain previous search and sort state when switching categories | Done       | Search and sort are stored per category in `localStorage`.                                |
-| Basic WCAG 2.2 Level A/AA expectations                          | Basic pass | Visible labels, visible focus, larger targets, clear states, semantic headings and links. |
-| Clear loading state while data is being fetched                 | Done       | Route loading UI is provided.                                                             |
-| Styled using CSS modules                                        | Done       | Component and route styles use CSS Modules.                                               |
+| Requirement                                                     | Status | Notes                                                                                     |
+| --------------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
+| Search via all available categories                             | Done   | Search is available on each category page.                                                |
+| Full list of relevant data for the searched category            | Done   | SWAPI pagination is followed until `next` is `null`.                                      |
+| Sort via name or title                                          | Done   | Films sort by `title`; other categories sort by `name`.                                   |
+| Error message on invalid request / failed request               | Done   | Clear inline error state is shown when fetch fails.                                       |
+| Transportation categories show required minimum fields          | Done   | `vehicles` and `starships` detail pages show the required fields.                         |
+| View most recently searched category                            | Done   | The most recently viewed category is stored and shown on the homepage.                    |
+| Retain previous search and sort state when switching categories | Done   | Search and sort are stored per category in `localStorage`.                                |
+| Basic WCAG 2.2 Level A/AA expectations                          | Done   | Visible labels, visible focus, larger targets, clear states, semantic headings and links. |
+| Clear loading state while data is being fetched                 | Done   | Route loading UI is provided.                                                             |
+| Styled using CSS modules                                        | Done   | Component and route styles use CSS Modules.                                               |
 
 ## Route-Based Approach
 

@@ -35,7 +35,12 @@ export function CategoryList({
               <h1 className={styles.title}>{label}</h1>
               <ExplorerControls />
             </div>
-            <p className={styles.description}>
+            <p
+              className={styles.description}
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               Showing {items.length} out of {totalCount} {label.toLowerCase()}.
             </p>
           </div>
