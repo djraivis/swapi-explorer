@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import type { SwapiCategory } from "@/lib/types";
 
 import styles from "./CategoryIllustration.module.css";
