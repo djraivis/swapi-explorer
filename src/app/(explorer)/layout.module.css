@@ -6,25 +6,6 @@
     linear-gradient(180deg, #f9fbfc 0%, var(--bg-page) 100%);
 }
 
-.skipLink {
-  position: absolute;
-  top: 12px;
-  left: 24px;
-  z-index: 30;
-  padding: 10px 14px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-control);
-  background: var(--bg-surface-strong);
-  color: var(--text-strong);
-  font-weight: 700;
-  box-shadow: var(--shadow-soft);
-  transform: translateY(-160%);
-}
-
-.skipLink:focus {
-  transform: translateY(0);
-}
-
 .content {
   width: 100%;
   max-width: 1080px;
@@ -35,10 +16,6 @@
 @media (max-width: 640px) {
   .page {
     padding-bottom: 40px;
-  }
-
-  .skipLink {
-    left: 16px;
   }
 
   .content {

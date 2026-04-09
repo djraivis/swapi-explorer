@@ -38,6 +38,25 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.skipLink {
+  position: absolute;
+  top: 12px;
+  left: 24px;
+  z-index: 30;
+  padding: 10px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--bg-surface-strong);
+  color: var(--text-strong);
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-160%);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -55,4 +74,21 @@ input:focus-visible,
 select:focus-visible {
   outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .skipLink {
+    left: 16px;
+  }
 }

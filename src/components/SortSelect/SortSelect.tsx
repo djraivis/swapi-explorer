@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import styles from "./SortSelect.module.css";
@@ -14,6 +15,7 @@ export function SortSelect() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const selectId = useId();
   const sortLabel = getSortLabel(pathname);
   const currentValue = searchParams.get("sort") ?? "";
 
@@ -32,10 +34,11 @@ export function SortSelect() {
   };
 
   return (
-    <label className={styles.wrapper}>
+    <label className={styles.wrapper} htmlFor={selectId}>
       <span className={styles.label}>Sort by {sortLabel}</span>
       <select
-        aria-label={`Sort current category by ${sortLabel.toLowerCase()}`}
+        id={selectId}
+        name="sort"
         className={styles.select}
         value={currentValue}
         onChange={(e) => handleChange(e.target.value)}

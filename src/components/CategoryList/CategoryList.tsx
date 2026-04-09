@@ -1,5 +1,6 @@
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ExplorerControls } from "@/components/ExplorerControls/ExplorerControls";
+import { CategoryIllustration } from "@/components/CategoryIllustration/CategoryIllustration";
 import Link from "next/link";
 
 import { CATEGORY_LABELS } from "@/lib/constants";
@@ -44,6 +45,9 @@ export function CategoryList({
             >
               Showing {items.length} out of {totalCount} {label.toLowerCase()}.
             </p>
+          </div>
+          <div className={styles.illustrationWrap}>
+            <CategoryIllustration category={category} />
           </div>
         </div>
       </div>

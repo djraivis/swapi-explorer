@@ -37,6 +37,18 @@
   color: var(--text-body);
 }
 
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -44,6 +56,12 @@
   width: 100%;
   max-width: 860px;
   margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.gridItem {
+  min-width: 0;
 }
 
 .card {

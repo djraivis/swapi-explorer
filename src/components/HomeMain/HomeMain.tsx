@@ -8,7 +8,7 @@ import styles from "./HomeMain.module.css";
 // Renders the landing page hero, recent link, and category cards.
 export function HomeMain() {
   return (
-    <main className={styles.main}>
+    <main className={styles.main} id="main-content" tabIndex={-1}>
       <section className={styles.hero}>
         <p className={styles.eyebrow}>Route-Based Explorer</p>
         <h1 className={styles.title}>Star Wars API Explorer</h1>
@@ -19,13 +19,20 @@ export function HomeMain() {
         <RecentCategory />
       </section>
 
-      <section className={styles.grid}>
-        {SWAPI_CATEGORIES.map((category) => (
-          <Link key={category} className={styles.card} href={`/${category}`}>
-            <span className={styles.cardLabel}>{CATEGORY_LABELS[category]}</span>
-            <span className={styles.cardMeta}>Open category</span>
-          </Link>
-        ))}
+      <section aria-labelledby="home-categories-heading">
+        <h2 className={styles.visuallyHidden} id="home-categories-heading">
+          Browse categories
+        </h2>
+        <ul className={styles.grid}>
+          {SWAPI_CATEGORIES.map((category) => (
+            <li key={category} className={styles.gridItem}>
+              <Link className={styles.card} href={`/${category}`}>
+                <span className={styles.cardLabel}>{CATEGORY_LABELS[category]}</span>
+                <span className={styles.cardMeta}>Open category</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

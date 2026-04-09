@@ -1,0 +1,49 @@
+.frame {
+  width: min(100%, 220px);
+}
+
+.art {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+}
+
+.outline {
+  fill: none;
+  stroke: #142033;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accentStroke {
+  fill: none;
+  stroke: #2458d3;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fillStrong {
+  fill: rgb(36 88 211 / 0.14);
+  stroke: #142033;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fillSoft {
+  fill: rgb(210 224 255 / 0.9);
+  stroke: #142033;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dot {
+  fill: #2458d3;
+}
+
+.dotSoft {
+  fill: rgb(20 32 51 / 0.22);
+}

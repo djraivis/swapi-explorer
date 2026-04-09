@@ -1,6 +1,6 @@
 .controls {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   align-items: end;
   justify-content: flex-start;
@@ -8,6 +8,7 @@
 
 @media (max-width: 720px) {
   .controls {
+    flex-wrap: wrap;
     justify-content: flex-start;
     width: 100%;
   }
