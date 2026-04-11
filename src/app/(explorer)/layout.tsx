@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AppHeader } from "@/components/AppHeader/AppHeader";
+import { DeveloperPanelsVisibilityProvider } from "@/components/DeveloperPanelsVisibility/DeveloperPanelsVisibility";
 
 import styles from "./layout.module.css";
 
@@ -11,11 +12,13 @@ export default function Layout({
   children: ReactNode;
 }) {
   return (
-    <div className={styles.page}>
-      <AppHeader />
-      <main className={styles.content} id="main-content" tabIndex={-1}>
-        {children}
-      </main>
-    </div>
+    <DeveloperPanelsVisibilityProvider>
+      <div className={styles.page}>
+        <AppHeader />
+        <main className={styles.content} id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+      </div>
+    </DeveloperPanelsVisibilityProvider>
   );
 }

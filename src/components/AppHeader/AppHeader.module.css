@@ -11,17 +11,15 @@
 
 .inner {
   width: 100%;
-  max-width: 1080px;
   margin: 0 auto;
   padding: 16px 24px 14px;
 }
 
 .topRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 20px;
   align-items: center;
-  justify-content: space-between;
 }
 
 .brand {
@@ -46,9 +44,26 @@
 }
 
 .nav {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 16px;
+  justify-self: center;
+  justify-content: center;
+}
+
+.panelToggle {
+  justify-self: end;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--bg-surface);
+  color: var(--text-strong);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .navLink {
@@ -78,12 +93,32 @@
 }
 
 .navLink:focus-visible,
-.brand:focus-visible {
+.brand:focus-visible,
+.panelToggle:focus-visible {
   outline-color: var(--focus-ring);
+}
+
+.panelToggle:hover,
+.panelToggle:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 @media (max-width: 640px) {
   .inner {
     padding: 14px 16px 12px;
+  }
+
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .nav {
+    justify-self: start;
+  }
+
+  .panelToggle {
+    justify-self: start;
   }
 }

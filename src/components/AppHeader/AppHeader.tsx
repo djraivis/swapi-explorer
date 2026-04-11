@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { ExplorerStateSync } from "../ExplorerStateSync/ExplorerStateSync";
 import { AppHeaderNav } from "./AppHeaderNav";
+import { DeveloperPanelsToggle } from "./DeveloperPanelsToggle";
 import styles from "./AppHeader.module.css";
 
 // Renders the shared explorer header and client-side state sync.
@@ -33,6 +34,7 @@ export function AppHeader() {
           </Link>
 
           <AppHeaderNav />
+          <DeveloperPanelsToggle />
         </div>
       </div>
     </header>
