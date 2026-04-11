@@ -35,16 +35,21 @@ export function CategoryList({
             <p className={styles.eyebrow}>Category</p>
             <div className={styles.titleRow}>
               <h1 className={styles.title}>{label}</h1>
+              <p
+                className={styles.description}
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span className={styles.titleDivider} aria-hidden="true">
+                  |
+                </span>
+                Showing {items.length} out of {totalCount} {label.toLowerCase()}.
+              </p>
+            </div>
+            <div className={styles.controlsRow}>
               <ExplorerControls />
             </div>
-            <p
-              className={styles.description}
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              Showing {items.length} out of {totalCount} {label.toLowerCase()}.
-            </p>
           </div>
           <div className={styles.illustrationWrap}>
             <CategoryIllustration category={category} />

@@ -9,8 +9,10 @@ export default function NotFound() {
   return (
     <div className={styles.page}>
       <AppHeader />
-      <NotFoundState />
-      <AppFooter />
+      <main className={styles.content} id="main-content" tabIndex={-1}>
+        <NotFoundState />
+        <AppFooter />
+      </main>
     </div>
   );
 }

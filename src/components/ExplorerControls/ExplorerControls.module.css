@@ -1,15 +1,20 @@
 .controls {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(190px, 240px);
+  gap: 14px;
   align-items: end;
   justify-content: flex-start;
+  width: min(100%, 640px);
+}
+
+.primaryControl,
+.secondaryControl {
+  min-width: 0;
 }
 
 @media (max-width: 720px) {
   .controls {
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    grid-template-columns: 1fr;
     width: 100%;
   }
 }

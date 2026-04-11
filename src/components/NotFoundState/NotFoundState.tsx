@@ -7,10 +7,12 @@ import styles from "./NotFoundState.module.css";
 // Renders the global 404 state with links back into the explorer.
 export function NotFoundState() {
   return (
-    <main className={styles.main}>
-      <section className={styles.panel}>
+    <section className={styles.main} aria-labelledby="not-found-title">
+      <div className={styles.panel}>
         <p className={styles.code}>404</p>
-        <h1 className={styles.title}>Page Not Found</h1>
+        <h1 className={styles.title} id="not-found-title">
+          Page Not Found
+        </h1>
         <p className={styles.message}>
           That route does not exist in this SWAPI explorer. Try one of the six
           supported categories instead.
@@ -29,7 +31,7 @@ export function NotFoundState() {
             </Link>
           ))}
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

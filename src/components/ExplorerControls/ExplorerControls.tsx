@@ -8,8 +8,12 @@ import styles from "./ExplorerControls.module.css";
 export function ExplorerControls() {
   return (
     <div className={styles.controls}>
-      <GlobalSearch />
-      <SortSelect />
+      <div className={styles.primaryControl}>
+        <GlobalSearch />
+      </div>
+      <div className={styles.secondaryControl}>
+        <SortSelect />
+      </div>
     </div>
   );
 }
