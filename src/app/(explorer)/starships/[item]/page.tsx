@@ -36,8 +36,8 @@ export default async function ItemPage({
       />
     );
   }
-  
- return (
+
+  return (
     <main className={styles.page}>
       <section className={styles.panel}>
         <DetailBackLink category="starships" />
@@ -47,8 +47,8 @@ export default async function ItemPage({
           This starship view shows the required transportation fields from the task brief.
         </p>
 
-        <TransportDetails item={itemData} />
+        <TransportDetails itemObject={itemData} />
       </section>
     </main>
- )
+  )
 }

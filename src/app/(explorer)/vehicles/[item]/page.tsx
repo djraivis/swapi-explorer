@@ -47,7 +47,7 @@ export default async function ItemPage({
           This vehicle view shows the required transportation fields from the task brief.
         </p>
 
-        <TransportDetails item={itemData} />
+        <TransportDetails itemObject={itemData} />
       </section>
     </main>
  )

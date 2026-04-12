@@ -1,12 +1,5 @@
 // Lists every SWAPI category supported by the app.
-export const SWAPI_CATEGORIES = [
-  "people",
-  "planets",
-  "films",
-  "species",
-  "starships",
-  "vehicles",
-] as const
+export const SWAPI_CATEGORIES = ["people", "planets", "films", "species", "starships", "vehicles"] as const
 
 // Derives the SWAPI category union type from the shared category list.
 export type SwapiCategory = (typeof SWAPI_CATEGORIES)[number]
@@ -32,6 +25,7 @@ export type TransportItem = SwapiListItem & {
   crew?: string
   passengers?: string
   cargo_capacity?: string
+  vehicle_class?: string
 }
 
 export type PersonItem = SwapiListItem & {
