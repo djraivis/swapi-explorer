@@ -1,8 +1,15 @@
+import { readFileSync } from "fs";
+import { join } from "path";
+
+import { marked } from "marked";
+
 import { AppFooter } from "@/components/AppFooter/AppFooter";
 import { AppHeader } from "@/components/AppHeader/AppHeader";
 import { DeveloperPanelsVisibilityProvider } from "@/components/DeveloperPanelsVisibility/DeveloperPanelsVisibility";
 import { ExplorerPageShell } from "@/components/ExplorerPageShell/ExplorerPageShell";
 import { NotFoundState } from "@/components/NotFoundState/NotFoundState";
+import { ReadmeDrawer } from "@/components/ReadmeDrawer/ReadmeDrawer";
+import { ReadmeDrawerProvider } from "@/components/ReadmeDrawer/ReadmeDrawerContext";
 import { getStaticPageDeveloperInfo } from "@/lib/developerInfo";
 
 import styles from "./not-found.module.css";
@@ -75,19 +82,25 @@ export default function NotFound() {
     ],
   })
 
+  const criteriaHtml = marked.parse(readFileSync(join(process.cwd(), "README-criteria.md"), "utf-8")) as string;
+  const interviewHtml = marked.parse(readFileSync(join(process.cwd(), "README-interview.md"), "utf-8")) as string;
+
   return (
     <DeveloperPanelsVisibilityProvider>
-      <div className={styles.page}>
-        <AppHeader />
-        <main className={styles.content} id="main-content" tabIndex={-1}>
-          <ExplorerPageShell developerInfo={developerInfo}>
-            <div className={styles.primaryColumn}>
-              <NotFoundState />
-              <AppFooter />
-            </div>
-          </ExplorerPageShell>
-        </main>
-      </div>
+      <ReadmeDrawerProvider criteriaHtml={criteriaHtml} interviewHtml={interviewHtml}>
+        <div className={styles.page}>
+          <AppHeader />
+          <main className={styles.content} id="main-content" tabIndex={-1}>
+            <ExplorerPageShell developerInfo={developerInfo}>
+              <div className={styles.primaryColumn}>
+                <NotFoundState />
+                <AppFooter />
+              </div>
+            </ExplorerPageShell>
+          </main>
+        </div>
+        <ReadmeDrawer />
+      </ReadmeDrawerProvider>
     </DeveloperPanelsVisibilityProvider>
   );
 }
