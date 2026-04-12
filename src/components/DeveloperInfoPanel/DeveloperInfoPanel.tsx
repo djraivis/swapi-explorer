@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, type ReactNode } from "react"
+import { Suspense, useEffect, useRef, type ReactNode } from "react"
 import type { DeveloperInfoPayload } from "@/lib/developerInfo"
 
 import { DeveloperRouteTimeline } from "@/components/DeveloperRouteTimeline/DeveloperRouteTimeline"
@@ -154,12 +154,14 @@ function renderLeftPanel(payload: DeveloperInfoPayload) {
             </CollapsibleSection>
 
             <CollapsibleSection sectionKey="left-url-state-timeline" title="2. URL State Timeline" defaultOpen={true}>
-                <DeveloperRouteTimeline
-                    mode="timeline"
-                    listClassName={styles.flowList}
-                    showResetButton={true}
-                    resetButtonClassName={styles.resetButton}
-                />
+                <Suspense fallback={<p className={styles.empty}>Loading route timeline...</p>}>
+                    <DeveloperRouteTimeline
+                        mode="timeline"
+                        listClassName={styles.flowList}
+                        showResetButton={true}
+                        resetButtonClassName={styles.resetButton}
+                    />
+                </Suspense>
             </CollapsibleSection>
 
             <CollapsibleSection sectionKey="left-data-lifecycle-timings" title="3. Data Lifecycle Timings" defaultOpen={true}>
@@ -245,7 +247,9 @@ function renderRightPanel(payload: DeveloperInfoPayload) {
             </CollapsibleSection>
 
             <CollapsibleSection sectionKey="right-what-changed-since-last-navigation" title="10. What Changed Since Last Navigation" defaultOpen={true}>
-                <DeveloperRouteTimeline mode="changes" listClassName={styles.flowList} />
+                <Suspense fallback={<p className={styles.empty}>Loading query diff...</p>}>
+                    <DeveloperRouteTimeline mode="changes" listClassName={styles.flowList} />
+                </Suspense>
                 <ul className={styles.flowList}>
                     {payload.changeHints.map((hint) => (
                         <li key={hint} className={styles.flowItem}>

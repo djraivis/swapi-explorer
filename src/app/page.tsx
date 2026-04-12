@@ -1,8 +1,3 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-
-import { marked } from "marked";
-
 import { AppFooter } from "@/components/AppFooter/AppFooter";
 import { AppHeader } from "@/components/AppHeader/AppHeader";
 import { DeveloperPanelsVisibilityProvider } from "@/components/DeveloperPanelsVisibility/DeveloperPanelsVisibility";
@@ -11,6 +6,7 @@ import { HomeMain } from "@/components/HomeMain/HomeMain";
 import { ReadmeDrawer } from "@/components/ReadmeDrawer/ReadmeDrawer";
 import { ReadmeDrawerProvider } from "@/components/ReadmeDrawer/ReadmeDrawerContext";
 import { getStaticPageDeveloperInfo } from "@/lib/developerInfo";
+import { getReadmeHtml } from "@/lib/readmeContent";
 
 import styles from "./page.module.css";
 
@@ -83,8 +79,7 @@ export default function Home() {
     ],
   })
 
-  const criteriaHtml = marked.parse(readFileSync(join(process.cwd(), "README-criteria.md"), "utf-8")) as string;
-  const interviewHtml = marked.parse(readFileSync(join(process.cwd(), "README-interview.md"), "utf-8")) as string;
+  const { criteriaHtml, interviewHtml } = getReadmeHtml();
 
   return (
     <DeveloperPanelsVisibilityProvider>
