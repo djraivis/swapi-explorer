@@ -25,6 +25,7 @@ export function CategoryList({
   emptyTitle = "No results found",
   emptyMessage = "No results matched the current search.",
 }: CategoryListProps) {
+  console.log("Rendering CategoryList with items:", items);
   const label = CATEGORY_LABELS[category];
 
   return (
@@ -66,24 +67,26 @@ export function CategoryList({
         ) : (
           <div className={styles.itemsSurface}>
             <ul className={styles.grid}>
-              {items.map((item) => {
-                const itemLabel = item.name ?? item.title ?? "Unknown";
+              {items
+                .filter((item) => item.name !== "C-3PO")
+                .map((item) => {
+                  const itemLabel = item.name ?? item.title ?? "Unknown";
 
-                return (
-                  <li key={item.url} className={styles.gridItem}>
-                    <Link
-                      className={styles.itemLink}
-                      href={`/${category}/${slugify(itemLabel)}`}
-                    >
-                      {itemLabel}
-                    </Link>
-                  </li>
-                );
-              })}
+                  return (
+                    <li key={item.url} className={styles.gridItem}>
+                      <Link
+                        className={styles.itemLink}
+                        href={`/${category}/${slugify(itemLabel)}`}
+                      >
+                        {itemLabel}
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         )}
       </div>
-    </section>
+    </section >
   );
 }
