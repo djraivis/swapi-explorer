@@ -62,7 +62,35 @@ Show an emoji for droids:
 }
 ```
 
-## 5. Disable/Hide Links
+## 4. Spread Operator for Arrays
+
+You can use the spread operator to create a new array by combining or extending arrays:
+
+```js
+const array = ["A", "B"]
+const newArray = [...array, "C", "D", "E"]
+console.log(array) // ['A', 'B']
+console.log(newArray) // ['A', 'B', 'C', 'D', 'E']
+```
+
+This is useful for adding items to an array without mutating the original, which is a common pattern in React state updates.
+
+---
+
+## 5. Spread Operator for Objects
+
+You can also use the spread operator to create a new object by copying properties from an existing object and adding or overriding properties:
+
+```js
+const object = { text: "Hello World" }
+const newObject = { ...object, anotherText: "Test" }
+console.log(object) // { text: 'Hello World' }
+console.log(newObject) // { text: 'Hello World', anotherText: 'Test' }
+```
+
+This is useful for updating state objects in React in an immutable way.
+
+## 6. Disable/Hide Links
 
 Render some items as plain text:
 
@@ -74,7 +102,7 @@ Render some items as plain text:
 }
 ```
 
-## 6. Add Tooltips
+## 7. Add Tooltips
 
 Show extra info on hover:
 
@@ -88,7 +116,7 @@ Show extra info on hover:
 }
 ```
 
-## 7. Group Items
+## 8. Group Items
 
 Group by first letter:
 
@@ -112,7 +140,7 @@ Object.entries(grouped).map(([letter, group]) => (
 ))
 ```
 
-## 8. Animate Items
+## 9. Animate Items
 
 Add a fade-in animation:
 
@@ -126,7 +154,7 @@ Add a fade-in animation:
 }
 ```
 
-## 9. Track Clicks
+## 10. Track Clicks
 
 Log when an item is clicked:
 
@@ -140,7 +168,7 @@ Log when an item is clicked:
 }
 ```
 
-## 10. Show Extra Details
+## 11. Show Extra Details
 
 Expand details on click:
 
