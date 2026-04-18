@@ -25,7 +25,9 @@ export function CategoryList({
   emptyTitle = "No results found",
   emptyMessage = "No results matched the current search.",
 }: CategoryListProps) {
-  console.log("Rendering CategoryList with items:", items);
+
+  console.log("Rendering CategoryList with items:", items.map((item) => item.name || item.title));
+
   const label = CATEGORY_LABELS[category];
 
   return (
