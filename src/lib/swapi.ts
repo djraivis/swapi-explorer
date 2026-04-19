@@ -11,6 +11,8 @@ type FetchCategoryItemsOptions = {
   search?: string
 }
 
+const SWAPI_BASE_URL = (process.env.SWAPI_BASE_URL ?? "https://swapi.dev/api").replace(/\/$/, "")
+
 // Fetches all paginated items for a SWAPI category, with optional search.
 export async function fetchCategoryItems<T extends SwapiListItem>(
   category: SwapiCategory,
@@ -19,8 +21,8 @@ export async function fetchCategoryItems<T extends SwapiListItem>(
   const items: T[] = []
   const search = typeof options.search === "string" ? options.search.trim() : ""
   const initialUrl = search
-    ? `https://swapi.dev/api/${category}/?search=${encodeURIComponent(search)}`
-    : `https://swapi.dev/api/${category}/`
+    ? `${SWAPI_BASE_URL}/${category}/?search=${encodeURIComponent(search)}`
+    : `${SWAPI_BASE_URL}/${category}/`
   let nextUrl: string | null = initialUrl
 
   while (nextUrl) {
@@ -40,7 +42,7 @@ export async function fetchCategoryItems<T extends SwapiListItem>(
 
 // Fetches the total item count for a SWAPI category.
 export async function fetchCategoryTotal(category: SwapiCategory) {
-  const response = await fetch(`https://swapi.dev/api/${category}/`)
+  const response = await fetch(`${SWAPI_BASE_URL}/${category}/`)
 
   if (!response.ok) {
     throw new Error(`Failed to fetch ${category} total`)

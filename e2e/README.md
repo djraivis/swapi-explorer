@@ -34,6 +34,9 @@ This folder contains end-to-end (E2E) tests for the SWAPI Explorer app using [Pl
 ## Notes
 
 - Tests run against `http://localhost:3000` and Playwright starts the app automatically.
+- Playwright runs the app with `SWAPI_BASE_URL=http://127.0.0.1:3000/api/mock-swapi` so E2E tests use the local mock route instead of the live `swapi.dev` API.
+- The mock API lives in `src/app/api/mock-swapi/[category]/route.ts` and exists to keep local runs and GitHub Actions stable and deterministic.
+- Normal app usage is unchanged because `src/lib/swapi.ts` still defaults to `https://swapi.dev/api` when `SWAPI_BASE_URL` is not set.
 - Test artifacts are written to `test-results/`.
 - The HTML report is written to `playwright-report/`.
 - Update selectors in tests as needed if UI changes.
