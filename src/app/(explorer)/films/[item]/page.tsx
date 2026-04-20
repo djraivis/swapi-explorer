@@ -1,7 +1,7 @@
 import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
 import { DetailSummary } from "@/components/DetailSummary/DetailSummary";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
+import { ItemNotFoundState } from "@/components/ItemNotFoundState/ItemNotFoundState";
 import { findCategoryItemBySlug } from "@/lib/swapi";
 import type { FilmItem } from "@/lib/types";
 
@@ -29,12 +29,7 @@ export default async function FilmsPage({
   }
 
   if (!itemData) {
-    return (
-      <EmptyState
-        title="Film not found"
-        message="No item matched this slug."
-      />
-    );
+    return <ItemNotFoundState category="films" itemLabel="Film" />;
   }
 
   return (

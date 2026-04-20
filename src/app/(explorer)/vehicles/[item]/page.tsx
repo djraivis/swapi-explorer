@@ -1,6 +1,6 @@
 import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
+import { ItemNotFoundState } from "@/components/ItemNotFoundState/ItemNotFoundState";
 import { TransportDetails } from "@/components/TransportDetails/TransportDetails";
 import type { TransportItem } from "@/lib/types";
 import { findCategoryItemBySlug } from "@/lib/swapi";
@@ -29,12 +29,7 @@ export default async function ItemPage({
   }
 
   if (!itemData) {
-    return (
-      <EmptyState
-        title="Vehicle not found"
-        message="No item matched this slug."
-      />
-    );
+    return <ItemNotFoundState category="vehicles" itemLabel="Vehicle" />;
   }
   
  return (

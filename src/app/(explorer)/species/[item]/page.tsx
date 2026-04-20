@@ -1,7 +1,7 @@
 import { DetailBackLink } from "@/components/DetailBackLink/DetailBackLink";
 import { DetailSummary } from "@/components/DetailSummary/DetailSummary";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { ErrorState } from "@/components/ErrorState/ErrorState";
+import { ItemNotFoundState } from "@/components/ItemNotFoundState/ItemNotFoundState";
 import { findCategoryItemBySlug } from "@/lib/swapi";
 import type { SpeciesItem } from "@/lib/types";
 import styles from "./page.module.css";
@@ -28,12 +28,7 @@ export default async function ItemPage({
   }
 
   if (!itemData) {
-    return (
-      <EmptyState
-        title="Species not found"
-        message="No item matched this slug."
-      />
-    );
+    return <ItemNotFoundState category="species" itemLabel="Species" />;
   }
 
   return (
