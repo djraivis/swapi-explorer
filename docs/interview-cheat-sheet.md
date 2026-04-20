@@ -41,7 +41,7 @@
 - **Testing:** Jest for unit/component, Playwright for E2E, CI runs all
 - **Accessibility:** Semantic HTML, keyboard navigation, color contrast, ARIA basics
 - **Error/Loading:** User feedback for errors, loading spinners
-- **Deployment:** Netlify for hosting, GitHub Actions for CI
+- **CI/Deployment:** GitHub Actions for validation, Netlify for hosting
 
 ---
 
@@ -51,6 +51,7 @@
 - How do you handle state and URL params? (Hooks, Next.js navigation)
 - How do you ensure accessibility? (Semantic HTML, ARIA, keyboard nav)
 - How do you test? (Jest, Playwright, CI)
+- Why mock SWAPI in Playwright? (Deterministic E2E runs, avoids third-party API flakiness)
 - How do you handle errors/loading? (Dedicated UI states)
 - How do you style components? (CSS Modules)
 - How do you use TypeScript? (Types, generics, props)

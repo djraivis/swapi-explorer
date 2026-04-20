@@ -139,8 +139,14 @@ export async function fetchCategoryItems<T extends SwapiListItem>(category: Swap
 
 ### GitHub Actions
 
-- **Status:** Not configured for this project.
-- **Note:** All builds and tests are run locally before deployment.
+- **Status:** Configured for this project.
+- **How I used it:**
+  - Added a `checks` job for install, type checking, linting, Jest, and production build validation.
+  - Added a separate `e2e` job for Playwright browser tests and artifact upload.
+  - Kept CI focused on validation only; deployment is still handled separately by Netlify.
+- **Why:**
+  - Splitting the jobs makes failures easier to understand and keeps browser testing separate from faster code-quality checks.
+- **Note:** The Playwright E2E flow uses local mock SWAPI data during test runs so CI does not depend on the live external API.
 
 ---
 

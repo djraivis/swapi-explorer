@@ -22,6 +22,8 @@ The application uses the App Router, CSS Modules, category routes, and slug-base
 - show dedicated detail pages for every category
 - show required transportation details for `vehicles` and `starships`
 - show loading, error, empty, item-not-found, and not-found states
+- include Jest component/unit coverage and Playwright end-to-end coverage
+- run automated checks and browser tests in GitHub Actions
 
 ## Detail Page Coverage
 
@@ -104,6 +106,8 @@ For the transportation categories, I added the required detail fields from the t
 
 I tried to keep the app aligned with basic WCAG 2.2 Level A and AA expectations. I added visible labels for form controls, visible keyboard focus states and larger interactive target areas.
 
+A current inventory of explicit accessibility-related attributes and associations is documented in `docs/ACCESSIBILITY-NOTES.md`.
+
 ## Error, Empty, Loading, and Not-Found States
 
 I added separate UI states for loading, error, empty results, and unknown routes so the app always gives clear feedback instead of failing silently. This helped make the app easier to use and easier to reason about while building.
@@ -111,11 +115,29 @@ This video demonstrates how the error message is displayed on screen when an API
 
 - [Error handling demo](https://cleanshot.com/share/h1LthRgv)
 
+## Testing And CI
+
+The project currently uses two testing layers:
+
+- **Jest + Testing Library** for smaller unit and component tests
+- **Playwright** for end-to-end browser coverage
+
+The Playwright setup starts the app automatically and points the app at a local mock SWAPI route during test runs. This keeps E2E runs deterministic and avoids depending on the live `swapi.dev` API.
+
+GitHub Actions is configured with two jobs:
+
+- `checks`: install, type check, lint, Jest, and production build
+- `e2e`: Playwright browser install, Playwright test run, and report artifact upload
+
+The workflow runs on pushes to `main` and pull requests targeting `main`.
+
 ## Project Structure
 
 ```text
 src/
 ├── app/
+│   ├── api/
+│   │   └── mock-swapi/
 │   ├── (explorer)/
 │   │   ├── films/
 │   │   ├── people/
@@ -137,6 +159,7 @@ src/
 │   ├── AppFooter/
 │   ├── AppHeader/
 │   ├── CategoryList/
+│   ├── CategoryIllustration/
 │   ├── DetailBackLink/
 │   ├── DetailField/
 │   ├── DetailSummary/
@@ -160,6 +183,21 @@ src/
 │   └── types.ts
 └── utils/
     └── wizard.ts
+__tests__/
+├── AppHeaderNav.test.tsx
+├── DetailField.test.tsx
+├── TransportDetails.test.tsx
+└── slugify.test.ts
+e2e/
+├── search-filter.spec.ts
+├── transport-details.spec.ts
+├── PLAYWRIGHT-NOTES.md
+└── README.md
+.github/
+└── workflows/
+    └── ci.yml
+docs/
+└── ACCESSIBILITY-NOTES.md
 ```
 
 ## Dynamic Routes Example
@@ -198,6 +236,30 @@ Run linting:
 
 ```bash
 yarn lint
+```
+
+Run Jest tests:
+
+```bash
+yarn test
+```
+
+Run Playwright E2E tests:
+
+```bash
+yarn test:e2e
+```
+
+Run Playwright in UI mode:
+
+```bash
+yarn test:e2e:ui
+```
+
+Open the Playwright HTML report:
+
+```bash
+yarn test:e2e:report
 ```
 
 Create a production build:

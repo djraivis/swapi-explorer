@@ -2,63 +2,45 @@
 
 ## What Was Done
 
-- Set up a CI workflow using GitHub Actions to automate code quality checks (type checking, linting, and tests) for every push and pull request to main.
-- Ensured the workflow uses the correct Node.js version to match project requirements and future GitHub Actions runner updates.
-- Added a basic Jest test to ensure the test step passes.
-
----
+- Set up a GitHub Actions workflow that validates the project on pushes to `main` and pull requests targeting `main`.
+- Split the pipeline into a fast `checks` job and a separate `e2e` Playwright job.
+- Kept the workflow on Node.js 24 to match the current project setup.
+- Added Playwright browser installation and report artifact upload to the CI flow.
 
 ## Challenges Faced
 
-- **Node.js Version Mismatch:**
-  - Next.js and some dependencies required Node.js 20.9.0+ or even 20.19.0+, but the workflow and local environment were initially on older versions.
-  - Solution: Upgraded both local and CI environments to Node.js 22, and later to Node.js 24 to future-proof the setup.
-- **Missing Test Script:**
-  - The test script in package.json pointed to Jest, but Jest was not installed.
-  - Solution: Installed Jest, @types/jest, and ts-jest, and initialized Jest config.
-- **No Test Files:**
-  - Jest failed with exit code 1 when no test files were present.
-  - Solution: Used the --passWithNoTests flag and added a simple test for the slugify utility.
-- **Linting Errors in Config Files:**
-  - ESLint flagged require() in jest.config.js.
-  - Solution: Added jest.config.js to .eslintignore to avoid linting config files.
-- **GitHub Actions Node.js Deprecation Warning:**
-  - GitHub Actions warned about Node.js 20 deprecation for actions.
-  - Solution: Updated workflow to use Node.js 24 and confirmed all actions are compatible.
-
----
+- **Keeping the workflow aligned with the real repo state:**
+  - As the project gained Jest tests, Playwright tests, and E2E-specific mocking, the original single-job documentation became outdated.
+  - Solution: Updated the workflow and docs together so the repo description matches the actual CI behavior.
+- **Separating fast checks from slower browser tests:**
+  - Running everything in one job makes failures noisier and slower to triage.
+  - Solution: Split CI into `checks` and `e2e`, with `e2e` depending on `checks`.
+- **Avoiding external API flakiness in CI:**
+  - Browser tests that hit `swapi.dev` directly can fail for reasons unrelated to the app.
+  - Solution: Run Playwright against a local mock SWAPI route during tests.
 
 ## Steps Taken
 
-1. Matched local and CI Node.js versions using fnm and setup-node.
-2. Installed and configured Jest for testing.
-3. Added a basic test to ensure CI passes.
-4. Updated ESLint config to ignore config files.
-5. Updated the workflow to use Node.js 24 for future compatibility.
-6. Verified all steps (install, lint, type check, test, build) work locally before pushing.
-
----
+1. Added a `checks` job for install, type check, lint, Jest, and build.
+2. Added an `e2e` job for Playwright browser install, E2E run, and artifact upload.
+3. Kept the workflow on Node.js 24.
+4. Wired Playwright to use deterministic mock SWAPI data during test runs.
+5. Verified local Jest, build, and targeted Playwright coverage before updating the docs.
 
 ## Takeaways & Learnings
 
 - Keeping local and CI environments in sync (Node.js version, dependencies) is critical for smooth development and CI/CD.
-- Even a simple test is useful to ensure the test step passes and CI is green.
-- Reading and acting on CI error messages step by step is the fastest way to resolve issues.
-- Using --passWithNoTests is helpful when starting out, but adding real tests is important for long-term quality.
-- Keeping config files out of linting avoids unnecessary errors.
-- Staying ahead of deprecation warnings (like Node.js 20 → 24) prevents future build failures.
-
----
+- Separating fast feedback from slower browser testing makes CI easier to understand and maintain.
+- Browser tests are much more reliable when they do not depend on third-party API uptime.
+- CI documentation drifts quickly unless it is updated alongside workflow changes.
 
 ## How This Reflects on My Project
 
-- The project now has a robust, automated CI pipeline that checks code quality on every push and pull request.
-- The setup process improved my understanding of Node.js version management, CI/CD, and test tooling.
-- I learned how to debug and resolve common CI issues, making future maintenance easier.
+- The project now has automated validation for type safety, linting, unit/component testing, production builds, and browser-level E2E coverage.
+- The CI setup reflects a more realistic engineering workflow than a single all-in-one job.
+- The testing story is now clearer: Jest covers smaller units and Playwright covers user-visible flows.
 - The project is now more reliable, maintainable, and ready for collaboration or deployment.
-
----
 
 ## Summary
 
-Setting up GitHub Actions for CI/CD required careful attention to Node.js versions, test tooling, and linting. By resolving each challenge, I improved both the project and my own workflow. The result is a modern, automated pipeline that ensures code quality and reliability for every change.
+The GitHub Actions setup now matches the current state of the project. It validates the app in two layers, keeps CI output easier to understand, and supports stable Playwright runs through local mock data rather than depending on external API availability.

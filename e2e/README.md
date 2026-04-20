@@ -6,7 +6,9 @@ This folder contains end-to-end (E2E) tests for the SWAPI Explorer app using [Pl
 
 - All E2E tests are in the `e2e/` folder at the project root.
 - Playwright config is in `playwright.config.ts` at the project root.
-- Sample test: `search-filter.spec.ts` covers homepage navigation and search filtering.
+- Current specs:
+  - `search-filter.spec.ts` covers homepage navigation and category search filtering.
+  - `transport-details.spec.ts` covers the minimum required transportation detail fields for vehicles and starships.
 - Notes: `PLAYWRIGHT-NOTES.md` for troubleshooting and tips.
 
 ## Running E2E Tests

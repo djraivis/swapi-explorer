@@ -1,64 +1,47 @@
 # GitHub Actions for Code Quality Checks
 
-This project can use GitHub Actions to automatically check code quality on every push and pull request. This ensures that only code that passes type checks, linting, and tests is merged into the main branch.
+This project uses GitHub Actions to run automated quality checks and browser tests for the `main` branch workflow.
 
----
+## Current Workflow
 
-## How It Works
+The workflow file is `/.github/workflows/ci.yml`.
 
-- Runs on every push and pull request to the `main` branch.
-- Installs dependencies, checks TypeScript types, lints, and runs tests.
-- Does **not** deploy—deployment is handled by Netlify.
+It runs on:
 
----
+- pushes to `main`
+- pull requests targeting `main`
 
-## Example Workflow File
+## Jobs
 
-Create a file at `.github/workflows/ci.yml`:
+### `checks`
 
-```yaml
-name: CI
+This job runs the faster validation steps:
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+- `yarn install --frozen-lockfile`
+- `yarn tsc --noEmit`
+- `yarn lint`
+- `yarn test --passWithNoTests`
+- `yarn build`
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+### `e2e`
 
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
+This job depends on `checks` and runs browser coverage:
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+- `yarn install --frozen-lockfile`
+- `npx playwright install --with-deps chromium`
+- `yarn test:e2e`
+- upload `playwright-report/` and `test-results/` as workflow artifacts
 
-      - name: Type check
-        run: yarn tsc --noEmit
+## Why It Is Split
 
-      - name: Lint
-        run: yarn lint
+The workflow uses separate jobs so:
 
-      - name: Run tests
-        run: yarn test
-```
+- cheaper checks fail fast before Playwright starts
+- unit/lint/build failures are easier to distinguish from browser-test failures
+- Playwright artifacts stay attached to the E2E job where they are most useful
 
----
+## Notes
 
-## Benefits
-
-- Catches errors before code is merged
-- Keeps codebase clean and reliable
-- Works alongside Netlify (which handles deployment)
-
----
-
-## Next Steps
-
-- Add the above workflow file to your repo to enable CI checks.
-- Monitor the Actions tab in GitHub for results.
+- GitHub Actions is used for validation, not deployment.
+- Netlify still handles deployment separately.
+- The Playwright suite uses the local mock SWAPI route configured by the test setup, so CI does not depend on the live `swapi.dev` API.
