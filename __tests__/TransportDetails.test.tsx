@@ -27,7 +27,7 @@ describe("TransportDetails", () => {
     expect(screen.getByText("Manufacturer")).toBeInTheDocument();
     expect(screen.getByText("Corellia Mining Corporation")).toBeInTheDocument();
     expect(screen.getByText("Cost in Credits")).toBeInTheDocument();
-    expect(screen.getByText("150000")).toBeInTheDocument();
+    expect(screen.getByText("150,000")).toBeInTheDocument();
     expect(screen.getByText("Length")).toBeInTheDocument();
     expect(screen.getByText("36.8")).toBeInTheDocument();
     expect(screen.getByText("Crew")).toBeInTheDocument();
@@ -35,6 +35,6 @@ describe("TransportDetails", () => {
     expect(screen.getByText("Passengers")).toBeInTheDocument();
     expect(screen.getByText("30")).toBeInTheDocument();
     expect(screen.getByText("Cargo Capacity")).toBeInTheDocument();
-    expect(screen.getByText("50000")).toBeInTheDocument();
+    expect(screen.getByText("50,000")).toBeInTheDocument();
   });
 });

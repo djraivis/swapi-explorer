@@ -43,7 +43,7 @@ The application uses the App Router, CSS Modules, category routes, and slug-base
 | Sort via name or title                                          | Done   | Films sort by `title`; other categories sort by `name`.                                   |
 | Error message on invalid request / failed request               | Done   | Clear inline error state is shown when fetch fails.                                       |
 | Transportation categories show required minimum fields          | Done   | `vehicles` and `starships` detail pages show the required fields.                         |
-| View most recently searched category                            | Done   | The most recently viewed category is stored and shown on the homepage.                    |
+| View most recently searched category                            | Done   | Implemented as the most recently viewed category route, stored and shown on the homepage. |
 | Retain previous search and sort state when switching categories | Done   | Search and sort are stored per category in `localStorage`.                                |
 | Basic WCAG 2.2 Level A/AA expectations                          | Done   | Visible labels, visible focus, larger targets, clear states, semantic headings and links. |
 | Clear loading state while data is being fetched                 | Done   | Route loading UI is provided.                                                             |
@@ -92,7 +92,7 @@ I added a reusable sort control that stores the selected sort option in the URL 
 
 ## Recent Category and Per-Category State
 
-I added `localStorage` persistence so the app remembers the most recently viewed category, and also keeps search and sort state separately for each category. When the user comes back to a category page, that saved state is restored into the URL so the page shows the same filtered and sorted state as before.
+I added `localStorage` persistence so the app remembers the most recently viewed category route, and also keeps search and sort state separately for each category. When the user comes back to a category page, that saved state is restored into the URL so the page shows the same filtered and sorted state as before.
 
 ## Slug-Based Detail Routes
 
