@@ -16,7 +16,13 @@ export default async function PeopleItemPage({
   let categoryData: SwapiListItem[];
   let totalCount: number;
 
+  // Toggle this to true to simulate an API error for testing purposes
+  const forceError = false;
+
   try {
+    if (forceError) {
+      throw new Error("Simulated API error");
+    }
     [categoryData, totalCount] = await Promise.all([
       fetchCategoryItems<SwapiListItem>("people", { search }),
       fetchCategoryTotal("people"),
