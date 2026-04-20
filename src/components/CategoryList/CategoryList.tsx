@@ -26,7 +26,8 @@ export function CategoryList({
   emptyMessage = "No results matched the current search.",
 }: CategoryListProps) {
 
-  console.log(`[CategoryList] FILTERED ITEMS for category='${category}':`, items.map((item) => item.name || item.title));
+  // Log the filtered items for debugging purposes
+  // console.log(`[CategoryList] FILTERED ITEMS for category='${category}':`, items.map((item) => item.name || item.title));
 
   const label = CATEGORY_LABELS[category];
 

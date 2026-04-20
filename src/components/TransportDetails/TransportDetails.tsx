@@ -16,7 +16,6 @@ const requiredFields: { label: string; key: keyof TransportItem; display?: boole
   { label: "Crew", key: "crew", display: true }, // 5
   { label: "Passengers", key: "passengers", display: true }, // 6
   { label: "Cargo Capacity", key: "cargo_capacity", display: true }, // 7
-  // { label: "Vehicle Class", key: "vehicle_class", display: false }, // 8
 ]
 
 // Renders the required transport detail fields for a vehicle or starship.
